@@ -12,5 +12,28 @@
     <servlet-name>GetOfficerDetails</servlet-name>
     <url-pattern>/god</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <servlet-name>GetApplication</servlet-name>
+    <servlet-class>com.shell.modular.business.GetApplication</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetApplication</servlet-name>
+    <url-pattern>/getapplicationidcm</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>viewApplicationCM</servlet-name>
+    <servlet-class>com.shell.controller.viewApplicationCM</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>viewApplicationCM</servlet-name>
+    <url-pattern>/viewapplicationcm</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>viewComments</servlet-name>
+    <servlet-class>com.shell.controller.viewComments</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>viewComments</servlet-name>
+    <url-pattern>/viewcommentscm</url-pattern>
+  </servlet-mapping>
 </web-app>
