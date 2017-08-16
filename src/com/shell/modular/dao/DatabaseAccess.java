@@ -931,7 +931,105 @@ public class DatabaseAccess {
 			}
 		}
 	}
-
+	
+	public static int checkpassword(String username,String password)
+	 {
+		  String query = null;
+		  
+		  if(username.startsWith("k")|username.startsWith("K"))
+			 query = "select password from officers where username='"+username+"'";
+		  else
+			 query = "select password from registration where username='"+username+"'";
+		 
+		if(!DBConnection.getResultStatus(query))
+			return 2;
+		else
+		{
+		ResultSet result =  DBConnection.getResultSet(query);
+	     try {
+			if(result.next())
+			{
+				String pwd = result.getString("password");
+				if(pwd.equals(password))
+				{
+					return 1;
+				}
+				else
+					return 0;
+			}
+	     }
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+			return 0;
+			}
+	     finally
+	     {
+	    	 try {
+				result.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				return 0;
+			}
+	     }
+	 }
+		return 0;
+		
+	}
+	  public static String getOfficerId(String username) throws SQLException
+	  {
+		  String query = "select officer_id from officers where username='"+username+"'";
+		  ResultSet result = DBConnection.getResultSet(query);
+		  if(result.next())
+		  return result.getString("officer_id");
+		  else
+			  return null;
+	  }
+	  public static String getQuestion(String username)
+	  {
+		  String query = "select question from registration where username='"+username+"'";
+		  if(!DBConnection.getResultStatus(query))
+			{
+			  return null;
+			}
+		    ResultSet result = DBConnection.getResultSet(query);
+			String question = null;
+			try {
+				if(result.next())
+				{
+					question = result.getString(1);
+				}
+			}
+			catch(Exception e)
+			{
+				return null;
+			}
+				return question;
+	  }
+	  
+	  public static int UpdatePassword(String username,String password)
+	  {
+		  String query = "update registration set password ='"+password+"' where username='"+username+"'";
+		  if(DBConnection.getResultStatus(query))
+		  {
+			  query = "commit";
+			  DBConnection.getResultStatus(query);
+			  return 1;
+		  }
+		  else
+			  return 0;
+	  }
+	  public static String getAnswer(String username) throws SQLException
+	  {
+		  String query = "select answer from registration where username ='"+username+"'";
+		  if(!DBConnection.getResultStatus(query))
+			  return null;
+		  ResultSet result = DBConnection.getResultSet(query);
+		  if(result.next())
+			  return result.getString("answer");
+		  else
+			  return null;
+				  
+	  }
 
 
 	
