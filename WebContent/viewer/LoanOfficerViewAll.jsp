@@ -23,7 +23,7 @@
 
 		<% 
 		// code to display the new application in grid format.
-		String username = (String)session.getAttribute("LoanOfficerUsername");
+		String username = (String)session.getAttribute("username");
 		if(username==null)
 		{
 			out.println("<script>alert('please login');window.location.href='index.html'</script>");
@@ -36,7 +36,8 @@
 		// history button will have the path thirdPartViewAll.jp
 		if(list == null)
 		{%>
-		<script>alert("error occurred, try to reload the page.");window.location.href='LoanOfficerViewAll.jsp';</script>
+		<script>alert("error occurred, try to reload the page.");
+</script>
 		<%}
 		else if(list.size()==0)
 		{
@@ -51,7 +52,7 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<h3><%= %></h3>
+				<h3><%=obj.getApplicationId() %></h3>
 				<p></p>
 
 

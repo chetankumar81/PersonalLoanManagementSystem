@@ -6,7 +6,7 @@ public class NewLoanApplication {
 	private long accnum,pcontact,offcontact,loanamt,moninc;
 	private	String salutation,fname,mname,lname;
 	private String pan,mail,gender,date,paddress,rowner,emptype,comp,desg,offaddress,offmail,exist_loan;
-	private String filePath,filePath2,filePath3,status,plan;
+	private String filePath,status,plan;
 	public int getAppid() {
 		return appid;
 	}
@@ -207,21 +207,7 @@ public class NewLoanApplication {
 		this.filePath = filePath;
 	}
 
-	public String getFilePath2() {
-		return filePath2;
-	}
 
-	public void setFilePath2(String filePath2) {
-		this.filePath2 = filePath2;
-	}
-
-	public String getFilePath3() {
-		return filePath3;
-	}
-
-	public void setFilePath3(String filePath3) {
-		this.filePath3 = filePath3;
-	}
 
 
 
@@ -239,7 +225,7 @@ public class NewLoanApplication {
 			String pan, String mail, String gender, String date,
 			String paddress, String rowner, String emptype, String comp,
 			String desg, String offaddress, String offmail, String exist_loan,
-			String filePath, String filePath2, String filePath3,String status,String plan) {
+			String filePath, String status,String plan) {
 		super();
 		this.appid = appid;
 		this.age = age;
@@ -266,8 +252,8 @@ public class NewLoanApplication {
 		this.offmail = offmail;
 		this.exist_loan = exist_loan;
 		this.filePath = filePath;
-		this.filePath2 = filePath2;
-		this.filePath3 = filePath3;
+	//	this.filePath2 = filePath2;
+		//this.filePath3 = filePath3;
 		this.status=status;
 		this.plan=plan;
 	}

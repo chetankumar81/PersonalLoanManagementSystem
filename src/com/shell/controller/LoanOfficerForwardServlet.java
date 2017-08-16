@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import com.shell.modular.business.LoanOfficerServices;
 
 
-@WebServlet("/LoanOfficerForwardServlet")
 public class LoanOfficerForwardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +26,7 @@ public class LoanOfficerForwardServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession(false);
 		try{
-			String username = (String)session.getAttribute("LoanOfficerUsername");
+			String username = (String)session.getAttribute("username");
 			if(username==null)
 			{
 				out.println("<script>alert('please login');window.location.href='viewer/index.html';</script>");

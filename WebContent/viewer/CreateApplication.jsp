@@ -12,20 +12,20 @@
 <title>New Loan Application</title>
 
 <!-- Bootstrap Core CSS -->
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="bootstrap/css/sb-admin.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/assets/bootstrap/css/sb-admin.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+<link href="${pageContext.request.contextPath}/viewer/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 
 </head>
 
 <body>
 <% 
-	String username = (String) session.getAttribute("CustomerUsername");
+	String username = (String) session.getAttribute("username");
 	
 	if(username==null)
 	{
@@ -100,24 +100,15 @@
 
 						<div class="panel-body">
 
-							<form class="form-horizontal" action="../SubmitLoanApplicationForm"
+							<form class="form-horizontal" action="${pageContext.request.contextPath}/SubmitLoanApplicationForm"
 								method="post" enctype="multipart/form-data">
 
 
-								<div class="form-group">
-									<label class="col-sm-2 control-label">Application
-										Number</label>
-									<div class="col-sm-10">
-										<input type="number" name="appnum" class="form-control"
-											disabled><br>
-
-									</div>
-								</div>
 
 								<div class="form-group">
 									<label class="col-sm-2 control-label">Account Number</label>
 									<div class="col-sm-10">
-										<input type="text" name="account" class="form-control"><br>
+										<input type="text" name="account" class="form-control" pattern="\d{10}" required ><br>
 
 									</div>
 								</div>
@@ -125,10 +116,16 @@
 									<label class="col-sm-2 control-label">EMI Plan</label>
 									<div class="col-sm-10">
 										<div class="col-lg-3">
-												<select class="form-control">
-													<option name="Plan">Mr.</option>
-													<option name="Plan">Ms.</option>
-													<option name="Plan">Mrs.</option>
+												<select class="form-control" name="Plan">
+													<option >6% 3MONTHS</option>
+													<option >9% 6MONTHS</option>
+													<option >12% 9MONTHS</option>
+													<option >15% 12MONTHS</option>
+													<option >18% 15MONTHS</option>
+													<option >21% 18MONTHS</option>
+													<option >24% 21MONTHS</option>
+													<option >27% 24MONTHS</option>
+													
 												</select><br>
 
 											</div>
@@ -142,10 +139,10 @@
 
 										<div class="row">
 											<div class="col-lg-3">
-												<select class="form-control">
-													<option name="salutation">Mr.</option>
-													<option name="salutation">Ms.</option>
-													<option name="salutation">Mrs.</option>
+												<select class="form-control"name="salutation">
+													<option >Mr.</option>
+													<option >Ms.</option>
+													<option >Mrs.</option>
 												</select><br>
 
 											</div>
@@ -171,7 +168,7 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label">PAN Number</label>
 									<div class="col-sm-10">
-										<input type="text" name="pan" class="form-control">
+										<input type="text" name="pan" class="form-control" required>
 
 									</div>
 								</div>
@@ -188,10 +185,10 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label">Gender</label>
 									<div class="col-sm-10">
-										<select class="form-control">
-											<option name="gender">Male</option>
-											<option name="gender">Female</option>
-											<option name="gender">Others</option>
+										<select class="form-control"name="gender">
+											<option >Male</option>
+											<option >Female</option>
+											<option >Others</option>
 										</select><br>
 
 
@@ -210,7 +207,7 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label">Age</label>
 									<div class="col-sm-10">
-										<input type="number" name="age" class="form-control"><br>
+										<input type="text" name="age" class="form-control"><br>
 
 									</div>
 								</div>
@@ -219,7 +216,7 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label">Contact Number</label>
 									<div class="col-sm-10">
-										<input type="number" name="pcontact" class="form-control"><br>
+										<input type="text" name="pcontact" class="form-control" pattern="\d{10}" required><br>
 
 									</div>
 								</div>
@@ -241,14 +238,14 @@
 									<label class="col-sm-2 control-label">Residence
 										Ownership</label>
 									<div class="col-sm-10">
-										<select class="form-control">
-											<option name="residential_owner">Self Owned</option>
-											<option name="residential_owner">Parental</option>
-											<option name="residential_owner">Owned Mortgage</option>
-											<option name="residential_owner">Company Provided</option>
-											<option name="residential_owner">Paying Guest</option>
-											<option name="residential_owner">Rental</option>
-											<option name="residential_owner">Relatives</option>
+										<select class="form-control" name="residential_owner">
+											<option >Self Owned</option>
+											<option >Parental</option>
+											<option >Owned Mortgage</option>
+											<option >Company Provided</option>
+											<option >Paying Guest</option>
+											<option >Rental</option>
+											<option >Relatives</option>
 										</select><br>
 									</div>
 								</div>
@@ -263,9 +260,9 @@
 
 										<div class="row">
 											<div class="col-lg-2">
-												<select class="form-control">
-													<option name="emptype">Salaried</option>
-													<option name="emptype">Self Employed</option>
+												<select class="form-control"name="emptype">
+													<option >Salaried</option>
+													<option >Self Employed</option>
 
 												</select><br>
 
@@ -307,8 +304,8 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label">Office Contact</label>
 									<div class="col-sm-10">
-										<input type="number" class="form-control"
-											name="office_contact"><br>
+										<input type="text" class="form-control"
+											name="office_contact" pattern="\d{10}"><br>
 
 									</div>
 								</div>
@@ -326,7 +323,7 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label">Loan Amount</label>
 									<div class="col-sm-10">
-										<input type="number" name="loan_amount" class="form-control"><br>
+										<input type="text" name="loan_amount" class="form-control"><br>
 
 									</div>
 								</div>
@@ -336,7 +333,7 @@
 									<label class="col-sm-2 control-label">Monthly
 										Income(INR)</label>
 									<div class="col-sm-10">
-										<input type="number" name="mon_inc" class="form-control"><br>
+										<input type="text" name="mon_inc" class="form-control"><br>
 
 									</div>
 								</div>
@@ -346,8 +343,8 @@
 										Loan</label>
 
 									<div class="col-lg-2">
-										<input type="radio" name="exist_loan"> Yes <input
-											type="radio" name="exist_loan"> No
+										<input type="radio" name="exist_loan" value="yes"> Yes <input
+											type="radio" name="exist_loan" value="no"> No
 
 
 
@@ -361,7 +358,7 @@
 									<label class="col-sm-2 control-label" for="exampleInputFile">Upload
 										Photo</label>
 									<div class="col-sm-10">
-										<input type="file" name="photo" id="exampleInputFile3">
+										<input type="file" name="photo" >
 										<br>
 										<br>
 									</div>
@@ -370,7 +367,7 @@
 									<label class="col-sm-2 control-label" for="exampleInputFile">Upload
 										Residential Address Proof</label>
 									<div class="col-sm-10">
-										<input type="file" name="paddress" id="exampleInputFile3">
+										<input type="file" name="paddress" >
 										<br>
 										<br>
 									</div>
@@ -379,7 +376,7 @@
 									<label class="col-sm-2 control-label" for="exampleInputFile">Upload
 										ID Proof(PAN/Aadhar/VoterID)</label>
 									<div class="col-sm-10">
-										<input type="file" name="pid" id="exampleInputFile3">
+										<input type="file" name="pid" >
 										<br>
 										<br>
 									</div>
@@ -413,11 +410,13 @@
 	<!-- /#wrapper -->
 
 	<!-- jQuery -->
-	<script src="bootstrap/js/jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/jquery.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-<%} %>
+	<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/bootstrap.min.js"></script>
+<%
+	} //closing the else part
+%>
 </body>
 
 </html>

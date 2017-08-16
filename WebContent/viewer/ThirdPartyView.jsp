@@ -48,7 +48,7 @@
 
 		<%
 			// code to display the new application in grid format.
-			String username = (String) session.getAttribute("PartyUsername");
+			String username = (String) session.getAttribute("username");
 			if (username == null) {
 				out.println("<script>alert('please login');window.location.href='thirdPartyLogin.html';</script>");
 				
@@ -78,7 +78,7 @@
 
 				<h3><%=%></h3>
 				<p></p>
-				<form action="../ThirdPartyUpdateServlet" method="post" id="myform">
+				<form action="/ThirdPartyUpdateServlet" method="post" id="myform">
 					<textarea rows="4" cols="50" name="comment" form="myform"
 						placeholder="enter the comment here" required></textarea>
 					<input type="hidden" value="<%=obj.getApplicationId()%>"

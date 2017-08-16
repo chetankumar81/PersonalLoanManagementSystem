@@ -2,14 +2,14 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="com.shell.modular.business.LoanOfficerServices"%>
 <%@ page import="com.shell.modular.business.LoanOfficerApplication"%>
-<%@ page import="java.util.ArrayList;"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Loan officer view new application</title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="bootstrap/css/1-col-portfolio.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/assets/bootstrap/css/1-col-portfolio.css" rel="stylesheet">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 		</h1>
 
 		<%
-			String username = (String) session.getAttribute("LoanOfficerUsername");
+			String username = (String) session.getAttribute("username");
 			if (username == null) {
 				out.println("<script>alert('please login');window.location.href='index.html';</script>");
 				
@@ -44,7 +44,7 @@
 		%>
 		<div class="row">
 			<div class="col-md-12">
-				<form action="../LoanOfficerApplicationDetailView.jsp" method="get">
+				<form action="LoanOfficerApplicationDetailView.jsp" method="get">
 
 					<p>descriptions</p>
 					<input type="hidden" value="<%=obj.getApplicationId()%>"
@@ -62,8 +62,8 @@
 			}
 		%>
 
-		<script src="bootstrap/js/jquery.min.js"></script>
-		<script src="bootstrap/js/popper.min.js"></script>
-		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/popper.min.js"></script>
+		<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -114,7 +114,7 @@ public class DatabaseAccess {
 			{
 				return null;
 			}
-			String query = "select * from loan_officer_assign where officer_id='"+officerId+"'";
+			String query = "select * from loan_officer_assign where officer_id="+officerId;
 			Statement stat2 = currentCon.createStatement();
 			ResultSet result = stat2.executeQuery(query);
 
@@ -157,13 +157,14 @@ public class DatabaseAccess {
 
 			while(resultSet.next())
 			{
-				list.add(new LoanOfficerApplication(resultSet.getInt("application_id"),resultSet.getInt("contact_no"),resultSet.getInt("age"),resultSet.getInt("office_contact_no"),resultSet.getString("name"),resultSet.getString("email_id"),resultSet.getString("gender"),resultSet.getString("address"),resultSet.getString("pan_no"),resultSet.getString("company_name"),resultSet.getString("designation"),resultSet.getString("office_address"),resultSet.getString("office_email"),resultSet.getString("existing_loan"),resultSet.getString("photo"),resultSet.getString("address_document"),resultSet.getDouble("loan_amount"),resultSet.getInt("monthly_income")));
+				list.add(new LoanOfficerApplication(resultSet.getInt("application_id"),resultSet.getInt("contact_no"),resultSet.getInt("age"),resultSet.getInt("office_contact_no"),resultSet.getString("fname"),resultSet.getString("email_id"),resultSet.getString("gender"),resultSet.getString("address"),resultSet.getString("pan_no"),resultSet.getString("company_name"),resultSet.getString("designation"),resultSet.getString("office_address"),resultSet.getString("office_email"),resultSet.getString("existing_loan"),resultSet.getString("photo"),resultSet.getString("address_document"),resultSet.getDouble("loan_amount"),resultSet.getInt("monthly_income")));
 			}
 
 			return list;
 
 		}catch(Exception e)
 		{
+			e.printStackTrace();
 			return null;
 		}
 		finally 
@@ -200,7 +201,7 @@ public class DatabaseAccess {
 			{
 				return null;
 			}
-			String query = "select * from loan_officer_assign where officer_id='"+officerId+"'";
+			String query = "select * from loan_officer_assign where officer_id="+officerId;
 			Statement stat2 = currentCon.createStatement();
 			ResultSet result = stat2.executeQuery(query);
 
@@ -252,7 +253,7 @@ public class DatabaseAccess {
 				return false;
 			}
 
-			String changeStatus="update loan_application set status = 'loanInspector' where application_id='"+applicationId+"'";
+			String changeStatus="update loan_application set status = 'loanInspector' where application_id="+applicationId;
 			Statement stat2 = currentCon.createStatement();
 			if(stat2.executeUpdate(changeStatus)!=0)
 			{
@@ -299,12 +300,12 @@ public class DatabaseAccess {
 		try
 		{
 			currentCon = DBConnection.getConnection();
-			String query ="select * from loan_application where application_id='"+id+"'";
+			String query ="select * from loan_application where application_id="+id;
 			Statement stat = currentCon.createStatement();
 			ResultSet result= stat.executeQuery(query);
 			if(result.next()){
 
-				LoanOfficerApplication app = new LoanOfficerApplication(result.getInt("application_id"),result.getInt("contact_no"),result.getInt("age"),result.getInt("office_contact_no"),result.getString("name"),result.getString("email_id"),result.getString("gender"),result.getString("address"),result.getString("pan_no"),result.getString("company_name"),result.getString("designation"),result.getString("office_address"),result.getString("office_email"),result.getString("existing_loan"),result.getString("photo"),result.getString("address_document"),result.getDouble("loan_amount"),result.getInt("monthly_income"));
+				LoanOfficerApplication app = new LoanOfficerApplication(result.getInt("application_id"),result.getInt("contact_no"),result.getInt("age"),result.getInt("office_contact_no"),result.getString("fname"),result.getString("email_id"),result.getString("gender"),result.getString("address"),result.getString("pan_no"),result.getString("company_name"),result.getString("designation"),result.getString("office_address"),result.getString("office_email"),result.getString("existing_loan"),result.getString("photo"),result.getString("address_document"),result.getDouble("loan_amount"),result.getInt("monthly_income"));
 				return app;
 			}
 			else
@@ -322,14 +323,14 @@ public class DatabaseAccess {
 		try
 		{	String status;
 		currentCon = DBConnection.getConnection();
-		String queryForStatus = "select * from loan_officer_assign where application_id ='" + applicationId + "' having max(time) = time"  ;
+		String queryForStatus = "select * from loan_app_or_rej where application_id ='" + applicationId ;
 		currentCon = DBConnection.getConnection();
 		Statement stat = currentCon.createStatement();
 		ResultSet resultSet = stat.executeQuery(queryForStatus);
 		if(resultSet.next())
 		{
 			status=resultSet.getString("status");
-			String forwardToUser = "update loan_officer_assign set status ='"+ status + "' where application_id ='"+ applicationId + "'";
+			String forwardToUser = "update loan_officer_assign set status ='"+ status + "' where application_id ="+ applicationId;
 			Statement stat2 = currentCon.createStatement();
 			if(stat2.executeUpdate(forwardToUser)!=0)
 			{
@@ -371,11 +372,12 @@ public class DatabaseAccess {
 
 		try{
 			currentCon = DBConnection.getConnection();
-			String query = "insert into loan_application(APPLICATION_ID,EMAIL_ID,GENDER,DATE_OF_BIRTH,AGE,CONTACT_NO,ADDRESS,PAN_NO,LOAN_AMOUNT,MONTHLY_INCOME,COMPANY_NAME,DESIGNATION,OFFICE_ADDRESS,OFFICE_CONTACT_NO,OFFICE_EMAIL,EXISTING_LOAN,PHOTO,ADDRESS_DOCUMENT,STATUS,REG_ID,ACCOUNTNO,SALUTATION,FNAME,MNAME,LNAME,RESIDENTIAL_OWNER) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into loan_application(APPLICATION_ID,EMAIL_ID,GENDER,DATE_OF_BIRTH,AGE,CONTACT_NO,ADDRESS,PAN_NO,LOAN_AMOUNT,MONTHLY_INCOME,COMPANY_NAME,DESIGNATION,OFFICE_ADDRESS,OFFICE_CONTACT_NO,OFFICE_EMAIL,EXISTING_LOAN,PHOTO,STATUS,REG_ID,ACCOUNTNO,SALUTATION,FNAME,MNAME,LNAME,RESIDENTIAL_OWNER,PLAN) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pst = currentCon.prepareStatement(query);
 
 			pst.setLong(1,loanapp.getAppid());
 			pst.setString(2,loanapp.getMail());
+			
 			pst.setString(3,loanapp.getGender()); 
 			pst.setString(4,loanapp.getDate());
 			pst.setLong(5,loanapp.getAge());
@@ -389,18 +391,20 @@ public class DatabaseAccess {
 			pst.setString(13,loanapp.getOffaddress());
 			pst.setLong(14,loanapp.getOffcontact());
 			pst.setString(15,loanapp.getOffmail());
-			pst.setString(17,loanapp.getExist_loan());
-			pst.setString(18,loanapp.getFilePath());
-			pst.setString(19,loanapp.getFilePath2());
-			pst.setString(20,loanapp.getStatus());
-			pst.setLong(21,loanapp.getRegno());
-			pst.setLong(22,loanapp.getAccnum());
-			pst.setString(23,loanapp.getSalutation());
-			pst.setString(24,loanapp.getFname());
-			pst.setString(25,loanapp.getMname());
-			pst.setString(26,loanapp.getLname());
-			pst.setString(25,loanapp.getPlan());
-
+			pst.setString(16,loanapp.getExist_loan());
+			pst.setString(17,loanapp.getFilePath());
+		//	pst.setString(1,loanapp.getFilePath2());
+			pst.setString(18,loanapp.getStatus());
+			pst.setInt(19,loanapp.getRegno());
+			pst.setLong(20,loanapp.getAccnum());
+			pst.setString(21,loanapp.getSalutation());
+			pst.setString(22,loanapp.getFname());
+			pst.setString(23,loanapp.getMname());
+			pst.setString(24,loanapp.getLname());
+		
+			pst.setString(25,loanapp.getRowner());
+			pst.setString(26,loanapp.getPlan());
+			System.out.println(loanapp.getAccnum());
 			row = pst.executeUpdate();
 
 			if(row!=0)
@@ -414,6 +418,7 @@ public class DatabaseAccess {
 		}
 		catch (Exception ex) 
 		{
+			ex.printStackTrace();
 			return 0;
 		} 
 
@@ -913,7 +918,8 @@ public class DatabaseAccess {
 			}
 		}
 		catch (Exception ex) 
-		{
+		{	
+			ex.printStackTrace();
 			return 0;
 		} 
 
@@ -1001,6 +1007,7 @@ public class DatabaseAccess {
 			}
 			catch(Exception e)
 			{
+				e.printStackTrace();
 				return null;
 			}
 				return question;

@@ -51,7 +51,7 @@
 		<!-- Top Menu Items -->
 		<ul class="nav navbar-right top-nav">
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
-				data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
+				data-toggle="dropdown"><i class="fa fa-user"></i> <%=session.getAttribute("username") %> <b
 					class="caret"></b></a>
 				<ul class="dropdown-menu">
 					<li><a href="#"><i class="fa fa-fw fa-user"></i> Profile</a></li>

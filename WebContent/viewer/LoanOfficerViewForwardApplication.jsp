@@ -11,9 +11,9 @@
 </head>
 <body>
 <%
-		String username = (String) session.getAttribute("LoanOfficerUsername");
+		String username = (String) session.getAttribute("username");
 		if (username == null) {
-			out.println("<script>alert('please login');;window.location.href='login.html'</script>");
+			out.println("<script>alert('please login');;window.location.href='index.html'</script>");
 			
 		}
 
@@ -24,7 +24,8 @@
 			if (list == null) {
 	%>
 	<script>
-		alert("error occurred, try to reload the page.");window.location.href='LoanOfficerViewForwardApplication.jsp';
+		alert("error occurred, try to reload the page.");
+		forward();
 	</script>
 	<%
 		} else if (list.size() == 0) {
@@ -34,7 +35,7 @@
 					// display the forward applications that are to be forwarded by loan officer in grid format.
 	%>
 
-	<form action="../LoanOfficerForwardServlet" method="post" id="myform">
+	<form action="/LoanOfficerForwardServlet" method="post" id="myform">
 		<input type="hidden" value="<%=obj.getApplicationId()%>"
 			name="applicationId" /> <input type="submit" value="forward"
 			name="LoanOfficerStatus" />
@@ -51,7 +52,11 @@
 
 
 
-
+<script type="text/javascript">
+	function forward(){
+		window.location.href='LoanOfficerViewForwardApplication.jsp';
+	}
+</script>
 
 </body>
 </html>

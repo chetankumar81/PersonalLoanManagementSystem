@@ -8,14 +8,14 @@
 </head>
 <body>
 	<%
-	if(session.getAttribute("LoanOfficerUsername")!=null)
+	if(session.getAttribute("username")!=null)
 	{
-    session.removeAttribute("LoanOfficerUsername");
+    session.removeAttribute("username");
     response.sendRedirect("viewer/Login.html");
 	}
 	else
 	{
-		out.println("<script>alert('login again');;window.location.href='login.html';</script>");
+		out.println("<script>alert('login again');;window.location.href='index.html';</script>");
 		
 	}
 	

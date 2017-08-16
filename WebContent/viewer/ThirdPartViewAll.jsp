@@ -42,7 +42,7 @@
 
 		<% 
 		// code to display the new application in grid format.
-		String username = (String)session.getAttribute("PartyUsername");
+		String username = (String)session.getAttribute("username");
 		if(username==null)
 		{
 			out.println("<script>alert('please login');window.location.href='thirdPartyLogin.html';</script>");
@@ -70,7 +70,7 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<h3><%= %></h3>
+				<h3><%=obj.getApplicationId() %></h3>
 				<p></p>
 
 				

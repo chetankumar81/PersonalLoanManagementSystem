@@ -3,6 +3,7 @@ package com.shell.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,14 +47,17 @@ public class RegServlet extends HttpServlet {
 		String answer = request.getParameter("answer");
 
 		Registration reg = new Registration(fName,mName,lName,email,address,username,password,gender,question,answer,contact,dob);
-		out.print(fName);
+		
 		if(NewRegistration.forwardToRegTable(reg)==0)
 		{
-			out.println("<script>alert('error');window.history.back();</script>");
+			out.println("<script>alert('Error'))</script>");
+			response.sendRedirect(request.getHeader("Referer"));
 		}
 		else
 		{
-			out.println("<script>alert('error');window.location.href='login.html';</script>");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("viewer/home.html");
+			dispatcher.forward(request, response);
+			
 		}
 	}
 

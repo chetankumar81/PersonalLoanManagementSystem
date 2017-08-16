@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.shell.modular.business.ThirdPartyServices;
 
-@WebServlet("/ThirdPartyUpdateServlet")
+
 public class ThirdPartyUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class ThirdPartyUpdateServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession(false);
 		try{
-			String username = (String)session.getAttribute("PartyUsername");
+			String username = (String)session.getAttribute("username");
 			if(username==null)
 			{
 				out.println("<script>alert('please login');window.location.href='viewer/thirdPartyLogin.html'</script>");

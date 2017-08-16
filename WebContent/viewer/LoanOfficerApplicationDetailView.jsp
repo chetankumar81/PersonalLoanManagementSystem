@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="com.shell.modular.business.LoanOfficerServices"%>
 <%@ page import="com.shell.modular.business.LoanOfficerApplication"%>
-<%@ page import="java.util.ArrayList;"%>
+<%@ page import="java.util.ArrayList"%>
 
 
 
@@ -11,8 +11,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Detailed view of the application</title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="bootstrap/css/shop-item.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/assets/bootstrap/css/shop-item.css" rel="stylesheet">
 <style>
 #pan_popup {
 	display: none;
@@ -57,7 +57,7 @@
 
 	<%
 		// code to display the new application in grid format.
-		String username = (String) session.getAttribute("LoanOfficerUsername");
+		String username = (String) session.getAttribute("username");
 		if (username == null) {
 			out.println("<script>alert('please login');window.location.href='login.html'</script>");
 
@@ -144,13 +144,10 @@
 							Sequi mollitia, necessitatibus quae sint natus.</p>
 						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
 						<hr>
-						<select name="loanInspector" form="myform">
-							<option>abcd</option>
-							<option>def</option>
-						</select>
-						<form action="../LoanOfficerUpdateServLet" method="post" id="myform">
-							<input type="hidden" value=<%= obj.getApplicationId() %>"  name="applicatioId"/><br />
-
+						
+						<form action="${pageContext.request.contextPath}/LoanOfficerUpdateServlet" method="post" id="myform">
+							<input type="text" value="<%= obj.getApplicationId() %>"  name="applicationId"/><br />
+							
 							<textarea rows="2" cols="50" name="comment" form="myform"
 								placeholder="enter the comment here" required></textarea>
 							<br> <input type="submit" value="Assign"
@@ -176,9 +173,9 @@
 	%>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="bootstrap/js/jquery.min.js"></script>
-	<script src="bootstrap/js/popper.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			//select the POPUP FRAME and show it

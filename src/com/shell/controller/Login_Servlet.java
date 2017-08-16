@@ -86,9 +86,9 @@ public class Login_Servlet extends HttpServlet {
 		if(control.checkp(username, password)==1)	
 		{
 			HttpSession session = request.getSession(true);
-			session.setAttribute("userid",username);
-			session.setMaxInactiveInterval(60);
-	        response.sendRedirect("SessionDemo");
+			session.setAttribute("username",username);
+			//session.setMaxInactiveInterval(60);
+	        response.sendRedirect("viewer/CustomerDashboard.jsp");
 		}
 		else if((control.checkp(username, password)) == 2)
 		{

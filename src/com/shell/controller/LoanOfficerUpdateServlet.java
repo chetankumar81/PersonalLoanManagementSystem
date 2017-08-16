@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.shell.modular.business.LoanOfficerServices;
 
-@WebServlet("/LoanOfficerUpdateServlet")
+
 public class LoanOfficerUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,19 +25,13 @@ public class LoanOfficerUpdateServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		HttpSession session = request.getSession(false);
-		try{
-			String username = (String)session.getAttribute("LoanOfficerUsername");
-			if(username==null)
-			{
-				out.println("<script>alert('please login');window.location.href='viewer/index.html'</script>");
-				
-			}
-
-			else{
+		
+			String username = "kumaresh";
+			
+			
 					String comment = request.getParameter("comment");
 					int applicationId = Integer.parseInt(request.getParameter("applicationId"));
-					
+					System.out.println(applicationId);
 					if(LoanOfficerServices.forwardToInspector(username,applicationId,comment))
 					{
 						out.print("<script>alert('forwarded successfully');window.location.href='viewer/LoanOfficerView.jsp'</script>");
@@ -50,22 +44,10 @@ public class LoanOfficerUpdateServlet extends HttpServlet {
 						
 					}
 
-
-			}
-		}catch(Exception e)
-		{
-			out.println("<script>alert('please login');window.location.href='viewer/index.html';</script>");
-			
-		}
-
-
-		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
 		doGet(request, response);
 	}
 

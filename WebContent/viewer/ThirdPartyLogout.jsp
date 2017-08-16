@@ -8,9 +8,9 @@
 </head>
 <body>
 	<%
-	if(session.getAttribute("PartyUsername")!=null)
+	if(session.getAttribute("username")!=null)
 	{
-    session.removeAttribute("PartyUsername");
+    session.removeAttribute("username");
     response.sendRedirect("thirdPartyLogin.html");
 	}
 	else

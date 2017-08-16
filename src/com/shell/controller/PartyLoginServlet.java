@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.shell.modular.business.ThirdPartyServices;
 
 
-@WebServlet("/PartyLoginServlet")
+
 public class PartyLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,7 +33,7 @@ public class PartyLoginServlet extends HttpServlet {
 		{ 
 			//success
 			HttpSession session = request.getSession();
-			session.setAttribute("PartyUsername",username); 
+			session.setAttribute("username",username); 
 			request.getRequestDispatcher("viewer/ThirdPartyView.jsp").forward(request, response);
 			
 			

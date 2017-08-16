@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>plms1</display-name>
   <welcome-file-list>
-    <welcome-file>viewer/index.jsp</welcome-file>
+    <welcome-file>viewer/home.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>GetOfficerDetails</servlet-name>
@@ -28,12 +28,146 @@
     <servlet-name>viewApplicationCM</servlet-name>
     <url-pattern>/viewapplicationcm</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>viewComments</servlet-name>
     <servlet-class>com.shell.controller.viewComments</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>viewComments</servlet-name>
     <url-pattern>/viewcommentscm</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LoanOfficerForwardServlet</servlet-name>
+    <servlet-class>com.shell.controller.LoanOfficerForwardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoanOfficerForwardServlet</servlet-name>
+    <url-pattern>/LoanOfficerForwardServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LoanOfficerUpdateServlet</servlet-name>
+    <servlet-class>com.shell.controller.LoanOfficerUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoanOfficerUpdateServlet</servlet-name>
+    <url-pattern>/LoanOfficerUpdateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PartyLoginServlet</servlet-name>
+    <servlet-class>com.shell.controller.PartyLoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PartyLoginServlet</servlet-name>
+    <url-pattern>/PartyLoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ThirdPartyUpdateServlet</servlet-name>
+    <servlet-class>com.shell.controller.ThirdPartyUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ThirdPartyUpdateServlet</servlet-name>
+    <url-pattern>/ThirdPartyUpdateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Change_Password</servlet-name>
+    <servlet-class>com.shell.controller.Change_Password</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Change_Password</servlet-name>
+    <url-pattern>/Change_Password</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Forgot_Password</servlet-name>
+    <servlet-class>com.shell.controller.Forgot_Password</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Forgot_Password</servlet-name>
+    <url-pattern>/Forgot_Password</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Login_Servlet</servlet-name>
+    <servlet-class>com.shell.controller.Login_Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login_Servlet</servlet-name>
+    <url-pattern>/Login_Servlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Officer_login</servlet-name>
+    <servlet-class>com.shell.controller.Officer_login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Officer_login</servlet-name>
+    <url-pattern>/Officer_login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TrackStatus</display-name>
+    <servlet-name>TrackStatus</servlet-name>
+    <servlet-class>com.shell.controller.TrackStatus</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TrackStatus</servlet-name>
+    <url-pattern>/TrackStatus</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetApplicationsServlet</display-name>
+    <servlet-name>GetApplicationsServlet</servlet-name>
+    <servlet-class>com.shell.controller.GetApplicationsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetApplicationsServlet</servlet-name>
+    <url-pattern>/GetApplicationsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RegServlet</display-name>
+    <servlet-name>RegServlet</servlet-name>
+    <servlet-class>com.shell.controller.RegServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegServlet</servlet-name>
+    <url-pattern>/RegServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Test</display-name>
+    <servlet-name>Test</servlet-name>
+    <servlet-class>com.shell.util.Test</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Test</servlet-name>
+    <url-pattern>/Test</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetExistingLoanServlet</display-name>
+    <servlet-name>GetExistingLoanServlet</servlet-name>
+    <servlet-class>com.shell.controller.GetExistingLoanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetExistingLoanServlet</servlet-name>
+    <url-pattern>/GetExistingLoanServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UploadPdc</display-name>
+    <servlet-name>UploadPdc</servlet-name>
+    <servlet-class>com.shell.controller.UploadPdc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadPdc</servlet-name>
+    <url-pattern>/UploadPdc</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SubmitLoanApplicationForm</display-name>
+    <servlet-name>SubmitLoanApplicationForm</servlet-name>
+    <servlet-class>com.shell.controller.SubmitLoanApplicationForm</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubmitLoanApplicationForm</servlet-name>
+    <url-pattern>/SubmitLoanApplicationForm</url-pattern>
   </servlet-mapping>
 </web-app>

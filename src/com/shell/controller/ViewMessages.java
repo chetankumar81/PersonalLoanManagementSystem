@@ -16,7 +16,7 @@ import com.shell.modular.business.Message;
 import com.shell.modular.business.MessageFetch;
 
 
-@WebServlet("/ViewMessages")
+
 public class ViewMessages extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
