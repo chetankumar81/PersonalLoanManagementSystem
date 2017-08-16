@@ -1,4 +1,4 @@
-package com.shell.modular.dao;
+package com.shell.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -50,7 +50,7 @@ public class DBConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-		}
+		} 
 
 
 	}
