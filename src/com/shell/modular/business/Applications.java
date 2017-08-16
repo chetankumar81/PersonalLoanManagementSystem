@@ -4,7 +4,9 @@ import java.sql.Date;
 
 public class Applications {
 	public String application_id;
-	public String name;
+	public String fname;
+	public String mname;
+	public String lname;
 	public String email_id;
 	public String gender;
 	public Date date_of_birth;
