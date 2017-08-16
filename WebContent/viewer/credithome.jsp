@@ -87,7 +87,7 @@
 								<tr>
 									<th>APPLICATION ID</th>
 									<th>LOAN AMOUNT</th>
-									<th>STATUS</th>
+									<th>CUSTOMER NAME</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -135,7 +135,7 @@
 						}
 					},
 					{	"data" : "loan_amount" }, 
-					{	"data" : "status" }
+					{	"data" : "name" }
 					]
 				});
 				}

@@ -60,14 +60,14 @@ public class DatabaseAccess {
 		return 	officers;
 	}
 	
-	public ArrayList<Applications> getApplicationIdcm(String officerid) {
+	public ArrayList<Applications> getApplicationIdcm(String status) {
 		ArrayList<Applications> applist = new ArrayList<Applications>();
 		try
 		{
 			currentCon = new DBConnection().getConnection();
-			String query = "SELECT application_id,loan_amount,status FROM loan_application WHERE application_id = (SELECT application_id FROM loan_officer_assign WHERE officer_id = ?)";
+			String query = "SELECT application_id,loan_amount,name FROM loan_application WHERE status = ?";
 			PreparedStatement pst = currentCon.prepareStatement(query);
-			pst.setString(1, officerid);
+			pst.setString(1, status);
 
 			ResultSet rs = pst.executeQuery();
 			while (rs.next())
@@ -77,7 +77,7 @@ public class DatabaseAccess {
 				Applications app = new Applications();
 				app.application_id = rs.getString(i++);
 				app.loan_amount = rs.getString(i++);
-				app.status = rs.getString(i++);
+				app.name = rs.getString(i++);
 				applist.add(app);
 			}
 
