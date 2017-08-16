@@ -135,7 +135,7 @@
 						}
 					},
 					{	"data" : "loan_amount" }, 
-					{	"data" : "name" }
+					{	"data" : "fname" }
 					]
 				});
 				}

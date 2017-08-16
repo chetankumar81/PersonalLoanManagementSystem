@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.shell.modular.business.Application;
-import com.shell.modular.business.ApplicationsCM;
+import com.shell.modular.business.Applications;
 import com.shell.modular.business.Comments;
 import com.shell.modular.business.LoanOfficerApplication;
 import com.shell.modular.business.Message;
@@ -725,12 +725,12 @@ public class DatabaseAccess {
 		
 	}
 
-	public ArrayList<ApplicationsCM> getApplicationIdcm(String status) {
-		ArrayList<ApplicationsCM> applist = new ArrayList<ApplicationsCM>();
+	public ArrayList<Applications> getApplicationIdcm(String status) {
+		ArrayList<Applications> applist = new ArrayList<Applications>();
 		try
 		{
 			currentCon = new DBConnection().getConnection();
-			String query = "SELECT application_id,loan_amount,status FROM loan_application WHERE status = ?)";
+			String query = "SELECT application_id,loan_amount,fname,lname,salutation FROM loan_application WHERE status = ?";
 			PreparedStatement pst = currentCon.prepareStatement(query);
 			pst.setString(1, status);
 
@@ -739,10 +739,10 @@ public class DatabaseAccess {
 			{
 				
 				int i=1;
-				ApplicationsCM app = new ApplicationsCM();
+				Applications app = new Applications();
 				app.application_id = rs.getString(i++);
 				app.loan_amount = rs.getString(i++);
-				app.name = rs.getString(i++);
+				app.fname = rs.getString(i++);
 				applist.add(app);
 			}
 
@@ -769,8 +769,8 @@ public class DatabaseAccess {
 		return 	applist;
 	}
 	
-	public ApplicationsCM viewApplicationCM(String appid) {
-		ApplicationsCM app = new ApplicationsCM();
+	public Applications viewApplicationCM(String appid) {
+		Applications app = new Applications();
 		try
 		{
 			currentCon = new DBConnection().getConnection();
@@ -780,28 +780,38 @@ public class DatabaseAccess {
 
 			ResultSet rs = pst.executeQuery();
 			
+			int i=1;
 			while (rs.next())
 			{
-				app.application_id = rs.getString(1);
-				app.name = rs.getString(2);
-				app.email_id = rs.getString(3);
-				app.gender = rs.getString(4);
-				app.date_of_birth = rs.getDate(5);
-				app.age = rs.getString(6);
-				app.contact_no = rs.getString(7);
-				app.address = rs.getString(8);
-				app.pan_no = rs.getString(9);
-				app.loan_amount = rs.getString(10);
-				app.monthly_income = rs.getString(11);
-				app.company_name = rs.getString(12);
-				app.designation = rs.getString(13);
-				app.office_address = rs.getString(14);
-				app.office_contact_no = rs.getString(15);
-				app.office_email = rs.getString(16);
-				app.existing_loan = rs.getString(17);
-				app.photo = rs.getString(18);
-				app.status = rs.getString(20);
-				app.reg_id = rs.getString(21);
+				app.application_id = rs.getString(i++);
+				app.fname = rs.getString(i++);
+				app.mname = rs.getString(i++);
+				app.lname = rs.getString(i++);
+				app.email_id = rs.getString(i++);
+				app.gender = rs.getString(i++);
+				app.date_of_birth = rs.getDate(i++);
+				app.age = rs.getString(i++);
+				app.contact_no = rs.getString(i++);
+				app.address = rs.getString(i++);
+				app.pan_no = rs.getString(i++);
+				app.loan_amount = rs.getString(i++);
+				app.monthly_income = rs.getString(i++);
+				app.company_name = rs.getString(i++);
+				app.designation = rs.getString(i++);
+				app.office_address = rs.getString(i++);
+				app.office_contact_no = rs.getString(i++);
+				app.office_email = rs.getString(i++);
+				app.existing_loan = rs.getString(i++);
+				app.photo = rs.getString(i++);
+				i++; //fetching document address but sending to jsp
+				i++; //fetching status but not sending to jsp
+				app.reg_id = rs.getString(i++);
+				i++; //for identity document
+				app.account_no = rs.getString(i++);
+				app.salutation = rs.getString(i++);
+				app.residential_owner = rs.getString(i++);
+				app.plan = rs.getString(i++);
+				
 			}
 
 		}

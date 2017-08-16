@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.shell.modular.business.Applications;
-import com.shell.modular.business.ApplicationsCM;
 import com.shell.modular.dao.DatabaseAccess;
 
 public class viewApplicationCM extends HttpServlet {
@@ -17,7 +16,7 @@ public class viewApplicationCM extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String appid = request.getParameter("appid");
-		ApplicationsCM app = new DatabaseAccess().viewApplicationCM(appid);
+		Applications app = new DatabaseAccess().viewApplicationCM(appid);
 		//String obj = new Gson().toJson(app);
 		request.setAttribute("app", app);
 

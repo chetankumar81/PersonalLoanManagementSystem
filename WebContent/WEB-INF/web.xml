@@ -13,11 +13,11 @@
     <url-pattern>/god</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>GetApplication</servlet-name>
-    <servlet-class>com.shell.modular.business.GetApplication</servlet-class>
+    <servlet-name>GetApplicationCM</servlet-name>
+    <servlet-class>com.shell.modular.business.GetApplicationCM</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>GetApplication</servlet-name>
+    <servlet-name>GetApplicationCM</servlet-name>
     <url-pattern>/getapplicationidcm</url-pattern>
   </servlet-mapping>
   <servlet>

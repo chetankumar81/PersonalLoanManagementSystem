@@ -96,7 +96,7 @@
 						<div class="well"><b>Name</b></div>
 					</div>
 					<div class="col-lg-8">
-						<div class="well"><%=app.name %></div>
+						<div class="well"><%=app.salutation%>&nbsp;<%=app.fname %>&nbsp;<%=app.lname %></div>
 					</div>
 				</div>
 				<div class="row">

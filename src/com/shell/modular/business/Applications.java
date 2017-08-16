@@ -26,4 +26,9 @@ public class Applications {
 	public String address_document;
 	public String status;
 	public String reg_id;
+	public String identity_document;
+	public String account_no;
+	public String salutation;
+	public String residential_owner;
+	public String plan;
 }
