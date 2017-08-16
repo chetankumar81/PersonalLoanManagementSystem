@@ -32,7 +32,7 @@ public class TrackStatus extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		try{
 
-			int regId = (Integer)session.getAttribute("CustomerUsername");//Integer.parseInt(request.getParameter("uname"));
+			int regId = 1;//(Integer)session.getAttribute("CustomerUsername");//Integer.parseInt(request.getParameter("uname"));
 
 			TrackApplication track1 = new TrackApplication();
 			track1.trackLoan(regId);
@@ -42,8 +42,8 @@ public class TrackStatus extends HttpServlet {
 			
 			if(applicationList == null)
 			{
-				out.println("<script>alert('please login');window.location.href='viewer/index.html';</script>");
-				
+				out.println("<script>alert('please login');</script>");
+				response.sendRedirect("index.html");
 			}
 			else if(applicationList.size()==0)
 			{
@@ -52,7 +52,7 @@ public class TrackStatus extends HttpServlet {
 			else
 			{
 				request.setAttribute("appList", applicationList);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("viewer/tracking.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("viewer/Tracking.jsp");
 				dispatcher.forward(request, response);
 
 			}
@@ -61,8 +61,9 @@ public class TrackStatus extends HttpServlet {
 
 		catch(Exception e)
 		{
-			out.println("<script>alert('please login');window.location.href='viewer/index.html';</script>");
-			
+			e.printStackTrace();
+			out.println("<script>alert('please login')</script>");
+			response.sendRedirect("viewer/index.html");
 		}
 
 	}

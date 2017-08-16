@@ -170,4 +170,14 @@
     <servlet-name>SubmitLoanApplicationForm</servlet-name>
     <url-pattern>/SubmitLoanApplicationForm</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateLoanInspector</display-name>
+    <servlet-name>UpdateLoanInspector</servlet-name>
+    <servlet-class>com.shell.controller.UpdateLoanInspector</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateLoanInspector</servlet-name>
+    <url-pattern>/UpdateLoanInspector</url-pattern>
+  </servlet-mapping>
 </web-app>

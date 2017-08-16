@@ -117,7 +117,7 @@
 									<div class="col-sm-10">
 										<div class="col-lg-3">
 												<select class="form-control" name="Plan">
-													<option >6% 3MONTHS</option>
+													<option value="6 3">6% 3MONTHS</option>
 													<option >9% 6MONTHS</option>
 													<option >12% 9MONTHS</option>
 													<option >15% 12MONTHS</option>

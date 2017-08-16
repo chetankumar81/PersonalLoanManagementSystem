@@ -23,7 +23,69 @@ import com.shell.util.DBConnection;
 
 public class DatabaseAccess {
 	private Connection currentCon;
+	public boolean updatedByLoanInspector(String username,int applicationId,String risk,String comment)
+	{	
+		int officerId;
+		try
+		{
+			currentCon = DBConnection.getConnection();
+			String queryForOfficerId = "select * from officers where username ='" +username+ "'";
+			currentCon = DBConnection.getConnection();
+			Statement stat = currentCon.createStatement();
+			ResultSet resultSet = stat.executeQuery(queryForOfficerId);
+			if(resultSet.next())
+			{
+				officerId=resultSet.getInt("officer_id");
+				System.out.println(officerId);
+			}
+			else
+			{
+				System.out.println("Executing 43 of databaseaccess");
+				return false;
+			}
 
+			String changeStatus="update loan_application set status = 'creditManager' where application_id='"+applicationId+"'";
+			Statement stat2 = currentCon.createStatement();
+			if(stat2.executeUpdate(changeStatus)!=0)
+			{
+		
+				String loanOfficerstatus ="insert into loan_officer_assign values (" + applicationId + "," + officerId + "," + "'" + risk + "','" + comment +"' )";
+				Statement stat3 = currentCon.createStatement();
+				if(stat3.executeUpdate(loanOfficerstatus)!=0)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+
+
+			}
+			else
+			{
+				return false;
+			}
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		finally 
+		{
+
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+
+				currentCon = null;
+			}
+		}
+
+	}
 	//function to authenticate the third party
 	public boolean thirdPartyValidation(String username ,String password)
 	{
@@ -501,11 +563,12 @@ public class DatabaseAccess {
 			ResultSet resultSet = stat.executeQuery(query);
 			int userId=0;
 
-			if(resultSet.next()){
+			while(resultSet.next()){
 				userId = resultSet.getInt("REG_ID");
 			}
 			return userId;
 		} catch (SQLException e) {
+			System.out.println("Error in getting User Id from Application"+e.getMessage());
 			return 0;
 		}
 		finally 
@@ -530,16 +593,20 @@ public class DatabaseAccess {
 			ResultSet resultSet = stat.executeQuery(query);
 			Application app = new Application();
 
-			if(resultSet.next()){
+			while(resultSet.next()){
+				System.out.println("line 593 database access: "+resultSet.getInt("loan_amount"));
 				app.setLoan_amount(resultSet.getInt("LOAN_AMOUNT"));
-				app.setInterest_rate(resultSet.getInt("INTEREST_RATE")); // extract the data 
-				app.setDuration_in_months(resultSet.getInt("DURATION"));
+				String plan=resultSet.getString("PLAN");
+				String[] emi_plan = plan.split(" ");
+				app.setInterest_rate(Double.parseDouble(emi_plan[0])); // extract the data 
+				app.setDuration_in_months(Integer.parseInt(emi_plan[1]));
 				app.setMonthly_income(resultSet.getDouble("MONTHLY_INCOME"));
 			}
 			return app;
 		}
 
 		catch (SQLException e) {
+			e.printStackTrace();
 			return null;
 		}
 		finally 
@@ -556,6 +623,7 @@ public class DatabaseAccess {
 		}
 
 	}
+
 
 
 	public double getExistingEMI(int regID){
@@ -582,7 +650,7 @@ public class DatabaseAccess {
 
 	public ArrayList<Integer> getApplicationIdForLoanInspector(){
 
-		String query = "SELECT APPLICATION_ID FROM LOAN_APPLICATION WHERE STATUS ='Loan Officer'";
+		String query = "SELECT APPLICATION_ID FROM LOAN_APPLICATION WHERE STATUS ='loanInspector'";
 		try
 		{
 			currentCon = DBConnection.getConnection();
@@ -626,7 +694,7 @@ public class DatabaseAccess {
 			while(resultSet.next()){
 				track=new Tracking();
 				track.setAppID(resultSet.getInt("APPLICATION_ID"));
-				track.setApplied_date(resultSet.getTimestamp("APPLIED_DATE"));
+				//track.setApplied_date(resultSet.getTimestamp("APPLIED_DATE"));
 				track.setStatus(resultSet.getString("STATUS"));
 				applicationList.add(track);
 			}	

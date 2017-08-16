@@ -14,7 +14,7 @@ public class DBConnection {
 			Class.forName("oracle.jdbc.driver.OracleDriver");		
 			//Creating a connection
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "shell");
-			System.out.println("Connection created");
+			System.out.println("Called getConnection method -> Connection created");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

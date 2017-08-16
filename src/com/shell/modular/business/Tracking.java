@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 // pojo class
 public class Tracking {
 	private int appID;
-	private Timestamp applied_date;
+	//private Timestamp applied_date;
 	private String status;
 	
 	
@@ -14,12 +14,8 @@ public class Tracking {
 	public void setAppID(int appID) {
 		this.appID = appID;
 	}
-	public Timestamp getApplied_date() {
-		return applied_date;
-	}
-	public void setApplied_date(Timestamp applied_date) {
-		this.applied_date = applied_date;
-	}
+	
+	
 	public String getStatus() {
 		return status;
 	}

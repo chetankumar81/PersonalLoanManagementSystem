@@ -17,7 +17,7 @@ public class GetApplicationCM extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Applications> applist = new DatabaseAccess().getApplicationIdcm("credit manager");
+		ArrayList<Applications> applist = new DatabaseAccess().getApplicationIdcm("creditManager");
 		String json = new Gson().toJson(applist);
 		//System.out.println(json);
 		PrintWriter out = response.getWriter();

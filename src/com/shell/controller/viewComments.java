@@ -16,7 +16,7 @@ public class viewComments extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String appid = "101";//request.getParameter("appid");
+		String appid = request.getParameter("appid");
 		System.out.println(appid);
 		ArrayList<Comments> commlist = new DatabaseAccess().getCommentsCM(appid);
 		//String json = new Gson().toJson(commlist);
