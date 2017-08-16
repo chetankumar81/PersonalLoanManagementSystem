@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Third Party Login Page</title>
+<script src="javascript/ThirdPartyValidation.js"></script>
+</head>
+<body>
+		<!--  this form gets the login details of third party -->
+		<form action="../PartyLoginServlet" method="post" onsubmit="return validate()">
+			username: <input type="text" name="user_name" id="name"/> <span id="name_error"></span>
+			password: <input type ="password" name="user_password"  id="password"/> <span id="password_error"></span>
+			<input type="submit" value="Login"/>
+		</form>
+</body>
+</html>
