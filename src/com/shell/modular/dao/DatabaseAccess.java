@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.shell.modular.business.Registration;
 import com.shell.modular.business.Application;
 import com.shell.modular.business.Applications;
 import com.shell.modular.business.Comments;
@@ -880,6 +881,59 @@ public class DatabaseAccess {
 		return 	commlist;
 	}
 	
+	public int submitRegistration(Registration reg){
+		int row;
+		String query = "insert into registration(fname,mname,lname,contact_no,gender,date_of_birth,email_id,address,username,password,question,answer) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+				//+reg.getfName()+"','"+reg.getmName()+"','"+reg.getlName()+"','"+reg.getEmail()+"','"+reg.getAddress()+"','"+reg.getUsername()+"','"+reg.getPassword()+"','"+reg.getGender()+"','"+reg.getQuestion()+"','"+reg.getAnswer()+"','"+reg.getContact()+"','"+reg.getDob()+"')";
+		PreparedStatement pst;
+		try {
+			currentCon = DBConnection.getConnection();
+			pst = currentCon.prepareStatement(query);
+			pst.setString(1,reg.getfName());
+			pst.setString(2,reg.getmName());
+			pst.setString(3,reg.getlName());
+			pst.setLong(4,reg.getContact());
+			pst.setString(5,reg.getGender()); 
+			pst.setString(6,reg.getDob());
+			pst.setString(7,reg.getEmail());
+			pst.setString(8,reg.getAddress());
+			pst.setString(9,reg.getUsername());
+			pst.setString(10,reg.getPassword());
+			pst.setString(11,reg.getQuestion());
+			pst.setString(12,reg.getAnswer());
+			row = pst.executeUpdate();
+			System.out.println(row);
+			if(row!=0)
+			{
+				return row;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		catch (Exception ex) 
+		{
+			return 0;
+		} 
+
+		//some exception handling
+		finally 
+		{
+
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+
+				currentCon = null;
+			}
+		}
+	}
+
+
+
 	
 	public Officers getOfficerDetails(String id) {
 

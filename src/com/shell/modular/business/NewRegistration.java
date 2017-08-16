@@ -5,11 +5,11 @@ import com.shell.modular.dao.DatabaseAccess;
 public class NewRegistration {
 
 
-	public static void forwardToRegTable(Registration reg)
+	public static int forwardToRegTable(Registration reg)
 	{
 		// updates the database with registration Details.
 		
-		 // return new DatabaseAccess().submitRegistration(reg); // write the dao function
+		  return new DatabaseAccess().submitRegistration(reg); // write the dao function
 		  
 	}
 
