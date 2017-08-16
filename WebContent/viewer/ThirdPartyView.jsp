@@ -14,8 +14,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Third Party View Contents</title>
 
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="bootstrap/css/1-col-portfolio.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/1-col-portfolio.css" rel="stylesheet">
 </head>
 
 
@@ -32,8 +32,7 @@
 			<li class="nav-item active"><a class="nav-link"
 				href="ThirdPartyView.jsp">Home <span class="sr-only">(current)</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="ThirdPartyViewAll.jsp">History</a></li>
+			
 			<li class="nav-item"><a class="nav-link"
 				href="ThirdPartyLogout.jsp">Logout</a></li>
 		</ul>
@@ -76,9 +75,11 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<h3><%=%></h3>
-				<p></p>
-				<form action="/ThirdPartyUpdateServlet" method="post" id="myform">
+				<h3><%= obj.getApplicationId() %> </h3>
+				<p><b>Customer name</b> : <%= obj.getName() %> </p>
+				<p><b>Customer address</b> : <%= obj.getAddress() %> </p>
+				<p><b>Customer contact:</b> : <%= obj.getContact_no() %> </p>
+				<form action="${pageContext.request.contextPath}/ThirdPartyUpdateServlet" method="post" id="myform">
 					<textarea rows="4" cols="50" name="comment" form="myform"
 						placeholder="enter the comment here" required></textarea>
 					<input type="hidden" value="<%=obj.getApplicationId()%>"
@@ -109,9 +110,9 @@
 	</div>
 	<!-- /.container --> </footer>
 
-	<script src="bootstrap/js/jquery.min.js"></script>
-	<script src="bootstrap/js/popper.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>

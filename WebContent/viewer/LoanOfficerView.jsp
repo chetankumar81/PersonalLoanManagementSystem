@@ -8,10 +8,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Loan officer view new application</title>
-<link href="${pageContext.request.contextPath}/viewer/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/viewer/assets/bootstrap/css/1-col-portfolio.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/1-col-portfolio.css" rel="stylesheet">
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<a class="navbar-brand" href="#">Third Party Portal</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarResponsive" aria-controls="navbarResponsive"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarResponsive">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item active"><a class="nav-link"
+				href="${pageContext.request.contextPath}/viewer/LoanOfficerView.jsp">Home <span class="sr-only">(current)</span>
+			</a></li>
+			
+			<li class="nav-item"><a class="nav-link"
+				href="${pageContext.request.contextPath}/viewer/LoanOfficerViewForwardApplication.jsp">Forward User</a></li>
+		</ul>
+	</div>
+	</nav>
+	<!--  end of navbar -->
 
 	<div class="container">
 		<h1 class="my-4">
@@ -21,7 +40,7 @@
 		<%
 			String username = (String) session.getAttribute("username");
 			if (username == null) {
-				out.println("<script>alert('please login');window.location.href='index.html';</script>");
+				out.println("<script>alert('please login');window.location.href='home.html';</script>");
 				
 			}
 
@@ -46,9 +65,10 @@
 			<div class="col-md-12">
 				<form action="LoanOfficerApplicationDetailView.jsp" method="get">
 
-					<p>descriptions</p>
+					<p><b>Application name :</b> <%=obj.getApplicationId() %></p>
+					
 					<input type="hidden" value="<%=obj.getApplicationId()%>"
-						name="id" /> <input type="submit" value="View" />
+						name="id" /> <input type="submit" class="btn btn-primary" value="view application" />
 				</form>
 
 			</div>
@@ -58,12 +78,14 @@
 			}
 
 				}
+				
 
 			}
 		%>
+		</div>
 
-		<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/popper.min.js"></script>
-		<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/popper.min.js"></script>
+		<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

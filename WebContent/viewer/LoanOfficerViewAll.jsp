@@ -9,8 +9,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>History</title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="bootstrap/css/1-col-portfolio.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/1-col-portfolio.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
@@ -80,9 +80,9 @@
 	</div>
 	<!-- /.container --> </footer>
 
-	<script src="bootstrap/js/jquery.min.js"></script>
-	<script src="bootstrap/js/popper.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>
