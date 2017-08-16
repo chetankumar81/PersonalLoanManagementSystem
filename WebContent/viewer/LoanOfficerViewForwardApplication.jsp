@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ page import="com.shell.modular.business.LoanOfficerServices"%>
 <%@ page import="com.shell.modular.business.LoanOfficerApplication"%>
 <%@ page import="java.util.ArrayList;"%>
@@ -7,14 +7,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>forward applications</title>
+<link
+	href="${pageContext.request.contextPath}/viewer/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/viewer/bootstrap/css/1-col-portfolio.css"
+	rel="stylesheet">
 </head>
 <body>
-<%
+	<%
 		String username = (String) session.getAttribute("username");
 		if (username == null) {
-			out.println("<script>alert('please login');;window.location.href='index.html'</script>");
-			
+			out.println("<script>alert('please login');window.location.href='home.html'</script>");
+
 		}
 
 		else {
@@ -35,12 +41,18 @@
 					// display the forward applications that are to be forwarded by loan officer in grid format.
 	%>
 
-	<form action="/LoanOfficerForwardServlet" method="post" id="myform">
-		<input type="hidden" value="<%=obj.getApplicationId()%>"
-			name="applicationId" /> <input type="submit" value="forward"
-			name="LoanOfficerStatus" />
-	</form>
-	
+	<div class="row">
+		<div class="col-md-12">
+
+			<form action="/LoanOfficerForwardServlet" method="post" >
+
+				<input type="hidden" value="<%=obj.getApplicationId()%>"
+					name="applicationId" /> <input type="submit" value="forward"
+					name="LoanOfficerStatus" class="btn btn-primary btn-xs"/>
+			</form>
+		</div>
+	</div>
+	<hr />
 
 	<%
 		}
@@ -52,11 +64,11 @@
 
 
 
-<script type="text/javascript">
-	function forward(){
-		window.location.href='LoanOfficerViewForwardApplication.jsp';
-	}
-</script>
+	<script type="text/javascript">
+		function forward() {
+			window.location.href = 'LoanOfficerViewForwardApplication.jsp';
+		}
+	</script>
 
 </body>
 </html>

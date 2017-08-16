@@ -11,18 +11,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Detailed view of the application</title>
-<link href="${pageContext.request.contextPath}/viewer/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/viewer/assets/bootstrap/css/shop-item.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/shop-item.css" rel="stylesheet">
 <style>
-#pan_popup {
-	display: none;
-	position: absolute;
-	margin: 0 auto;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	box-shadow: 0px 0px 50px 2px #000;
-}
+
 
 #aadhar_popup {
 	display: none;
@@ -49,8 +41,8 @@
 			<li class="nav-item active"><a class="nav-link" href="LoanOfficerView.jsp">Home
 					<span class="sr-only">(current)</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="LoanOfficerViewAll.jsp">History</a></li>
-			<li class="nav-item"><a class="nav-link" href="LoanOfficerLogout.jsp">Logout</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/viewer/LoanOfficerViewAll.jsp">History</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/viewer/LoanOfficerLogout.jsp">Logout</a></li>
 		</ul>
 	</div>
 	</nav>
@@ -59,7 +51,7 @@
 		// code to display the new application in grid format.
 		String username = (String) session.getAttribute("username");
 		if (username == null) {
-			out.println("<script>alert('please login');window.location.href='login.html'</script>");
+			out.println("<script>alert('please login');window.location.href='home.html'</script>");
 
 
 		}
@@ -87,7 +79,7 @@
 				<h1 class="my-4"></h1>
 				<div class="list-group">
 
-					<button class="btn btn-primary" id="pan">Pan Photo Copy</button>
+					
 					<button class="btn btn-primary" id="aadhar">Aadhar Photo
 						Copy</button>
 
@@ -96,12 +88,9 @@
 			</div>
 			<!-- /.col-lg-3 -->
 			<!--  div that pop up images  -->
-			<div id="pan_popup">
-				<img src="<%=obj.getPhotoUrl()%>" alt="popup">
-				<button id="closePan" class="btn btn-success btn-xs">Close</button>
-			</div>
+			
 			<div id="aadhar_popup">
-				<img src="<%=obj.getDocUrl()%>" alt="popup">
+				<img src="<%=obj.getPhotoUrl()%>" alt="popup">
 				<button id="closeAadhar" class="btn btn-success btn-xs">Close</button>
 			</div>
 
@@ -111,14 +100,10 @@
 				<div class="card mt-4">
 
 					<div class="card-body">
-						<h3 class="card-title"></h3>
-						<h4>$24.99</h4>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque
-							facere, soluta. Totam id dolores, sint aperiam sequi pariatur
-							praesentium animi perspiciatis molestias iure, ducimus!</p>
-						<span class="text-warning">&#9733; &#9733; &#9733; &#9733;
-							&#9734;</span> 4.0 stars
+						<h3 class="card-title"><%=obj.getName() %></h3>
+						<h4><%=obj.getApplicationId() %></h4>
+						
+						
 					</div>
 				</div>
 				<!-- /.card -->
@@ -126,23 +111,32 @@
 				<div class="card card-outline-secondary my-4">
 					<div class="card-header">Details</div>
 					<div class="card-body">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.</p>
-
+						<p class="card-text"><b>gender :</b> <%= obj.getGender() %></p>
+						
 						<hr>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.</p>
-
+						<p class="card-text"><b>address :</b> <%= obj.getAddress() %></p><hr>
+						
+						<p class="card-text"><b>email id :</b> <%= obj.getEmialId() %></p>
+						
 						<hr>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
+						<p class="card-text"><b>designation :</b> <%= obj.getDesignation() %></p>
+						
+						<hr>
+						
+						<p class="card-text"><b>company name :</b> <%= obj.getCompanyName() %></p>
+						<hr>	
+						
+						<p class="card-text"><b>age :</b> <%= obj.getAge() %></p>
+						
+						<hr>
+						<p class="card-text"><b>contact no :</b> <%= obj.getContactNo() %></p>
+						
+						<hr>
+						<p class="card-text"><b>loan amount :</b> <%= obj.getLoanAmount() %></p>
+						
+						<hr>
+						<p class="card-text"><b>monthly income :</b> <%= obj.getMonthlyIncome() %></p>
+						
 						<hr>
 						
 						<form action="${pageContext.request.contextPath}/LoanOfficerUpdateServlet" method="post" id="myform">
@@ -173,22 +167,13 @@
 	%>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/popper.min.js"></script>
-	<script src="${pageContext.request.contextPath}/viewer/assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			//select the POPUP FRAME and show it
-			$("#pan").on("click", function() {
-				$("#pan_popup").hide().fadeIn(1000);
-			});
-
-			//close the POPUP if the button with id="close" is clicked
-			$("#closePan").on("click", function(e) {
-				e.preventDefault();
-				$("#pan_popup").fadeOut(1000);
-			});
-
+			
 			$("#aadhar").on("click", function() {
 				$("#aadhar_popup").hide().fadeIn(1000);
 			});
