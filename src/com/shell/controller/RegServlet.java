@@ -2,37 +2,42 @@ package com.shell.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.shell.modular.business.*;
 
-import com.shell.modular.business.NewRegistration;
-import com.shell.modular.business.Registration;
-import com.shell.modular.dao.DatabaseAccess;
-
-
-public class  RegServlet extends HttpServlet {
+/**
+ * Servlet implementation class RegServlet
+ */
+public class RegServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public RegServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		String fName = request.getParameter("fName");
-		String mName = request.getParameter("mName");
-		String lName = request.getParameter("lName");
+		String fName = request.getParameter("fname");
+		String mName = request.getParameter("mname");
+		String lName = request.getParameter("lname");
 		long contact = Long.parseLong(request.getParameter("contact"));
 		String email = request.getParameter("email");
 		String gender = request.getParameter("gender");
-		SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy"); 
-		Date dob;
-		try {
-			dob = formatter1.parse(request.getParameter("dob"));
-	
+		//
+		String dob=request.getParameter("dob");
+		
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -41,18 +46,22 @@ public class  RegServlet extends HttpServlet {
 		String answer = request.getParameter("answer");
 
 		Registration reg = new Registration(fName,mName,lName,email,address,username,password,gender,question,answer,contact,dob);
-		NewRegistration.forwardToRegTable(reg);
-		}
-		catch(Exception e)
+		out.print(fName);
+		if(NewRegistration.forwardToRegTable(reg)==0)
 		{
-			out.println("<script>alert('date format error');window.history.back();</script>");
+			out.println("<script>alert('error');window.history.back();</script>");
 		}
-	
-		
+		else
+		{
+			out.println("<script>alert('error');window.location.href='login.html';</script>");
+		}
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

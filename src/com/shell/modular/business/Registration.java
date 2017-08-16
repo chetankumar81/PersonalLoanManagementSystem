@@ -1,4 +1,4 @@
-package com.shell.modular.business;
+package com.shell.business;
 
   import java.util.*;
   public class Registration  // package com.shell.modular.business
@@ -6,10 +6,10 @@ package com.shell.modular.business;
       
     private String fName,mName,lName,email,address,username,password,gender,question,answer;
     private long contact;
-    private Date dob;
+    private String dob;
     
     public Registration(String fName,String mName,String lName,String email,String address,
-    String username,String password,String gender,String question,String answer,long contact, Date dob){
+    String username,String password,String gender,String question,String answer,long contact, String dob){
         super();
         this.fName=fName;
         this.mName=mName;
@@ -113,11 +113,11 @@ package com.shell.modular.business;
 		this.contact = contact;
 	}
 
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
     
