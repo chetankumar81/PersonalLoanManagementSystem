@@ -20,7 +20,7 @@ public class Officer_login extends HttpServlet {
 		HttpSession session = null;
 		String username = request.getParameter("usr");
 		String password = request.getParameter("pwd");
-		if((control.checkp(username, password)) == 1)	
+		if((control.officer_checkp(username, password)) == 1)	
 		{
 
 			session = request.getSession(false);
@@ -29,12 +29,18 @@ public class Officer_login extends HttpServlet {
 			session.setAttribute("username",username);
 			try {
 				session.setAttribute("officer_id", DatabaseAccess.getOfficerId(username));
+				int role = new DatabaseAccess().getRoleId(Integer.parseInt((String)session.getAttribute("officer_id")));
+				if(role==1)
+					response.sendRedirect("viewer/LoanOfficerView.jsp");
+				else if(role==2)
+					response.sendRedirect("GetApplicationsServlet");
+				else
+					response.sendRedirect("viewer/credithome.jsp");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			session.setMaxInactiveInterval(600*200*20);
-			response.sendRedirect("viewer/LoanOfficerView.jsp");
 		}
 		else{
 			response.sendRedirect("viewer/Officer_login.html");

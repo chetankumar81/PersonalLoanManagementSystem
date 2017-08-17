@@ -150,9 +150,9 @@
                                 </div>
                                 <div class="timeline-body">
                                     <p class="text-muted" align="justify">
-									ABCD Bank is one of largest private sector bank in India. The Bank offers financial services in the form of personal loan.
-The bank has a large footprint of 300 domestic branches. ABCD Bank is one of the first new generation private sector banks to have begun operations in 2000.
-With a balance sheet size of Rs. 6,01,468 crores as on 31st March 2017, ABCD Bank has achieved consistent growth and with a 5 year CAGR (2011-12 to 2016-17)
+									ECB Bank is one of largest private sector bank in India. The Bank offers financial services in the form of personal loan.
+The bank has a large footprint of 300 domestic branches. ECB Bank is one of the first new generation private sector banks to have begun operations in 2000.
+With a balance sheet size of Rs. 6,01,468 crores as on 31st March 2017, ECB Bank has achieved consistent growth and with a 5 year CAGR (2011-12 to 2016-17)
 of 16% in Total Assets, 13% in Total Deposits, 17% in Total Advances.</p>
                                 </div>
                             </div>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page
-	import="com.google.gson.Gson,com.shell.modular.business.Comments,java.util.ArrayList"%>
+	import="com.google.gson.Gson,com.shell.modular.business.Comments,java.util.ArrayList,com.shell.modular.business.CalculateRisk"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -38,31 +38,7 @@
 	<div id="wrapper">
 
 		<!-- Navigation -->
-		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-ex1-collapse">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="index.html"></a>
-		</div>
-		<!-- Top Menu Items -->
-		<ul class="nav navbar-right top-nav">
-			<li class="dropdown"><a href="#" class="dropdown-toggle"
-				data-toggle="dropdown"><i class="fa fa-user"></i> <%=session.getAttribute("username")%>
-					<b class="caret"></b></a>
-				<ul class="dropdown-menu">
-					<li><a href="#"><i class="fa fa-fw fa-user"></i> Profile</a></li>
-					<li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-					</li>
-					<li class="divider"></li>
-					<li><a href="#"><i class="fa fa-fw fa-power-off"></i> Log
-							Out</a></li>
-				</ul></li>
-		</ul>
+		<jsp:include page='header.jsp' />
 		<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 		<jsp:include page='side-nav.jsp' /> <!-- /.navbar-collapse --> </nav>
 
@@ -95,6 +71,7 @@
 						<tbody>
 							<%
 								ArrayList<Comments> commlist = (ArrayList<Comments>) request.getAttribute("commlist");
+							String applicationid = null;
 								for (int i = 0; i < commlist.size(); i++) {
 							%>
 							<tr>
@@ -103,36 +80,43 @@
 								<td><%=commlist.get(i).role_name%></td>
 							</tr>
 							<%
+								applicationid = commlist.get(i).appid;
 								}
 							%>
 						</tbody>
 					</table>
 				</div>
+				<% double emi = new CalculateRisk().getEmi(Integer.parseInt(applicationid));
+				 double amount = new CalculateRisk().getAmountSanctioned(Integer.parseInt(applicationid));
+				%>
 				<div class="row">
-					<form action="#" method="post">
+					<form id="myform" action="${pageContext.request.contextPath}/submitloan" method="post">
 						<div class="col-lg-12">
 							<ol class="breadcrumb">
 								<li><i></i>Loan Sanctioned Form</li>
 							</ol>
 
 							<div class="form-group">
-								<label>Loan Amount To be Sanctioned</label> <input
-									class="form-control" type="text" name="loan_sanctioned">
+								
+								<label for="disabledSelect">Loan Amount Sanctioned</label> <input
+									class="form-control" id="disabledInput" type="text" 
+									value="<%=amount %>" placeholder="Disabled input"
+									disabled=""><input type="hidden" value="<%=amount %>" name="amount">
 							</div>
 							<div class="form-group">
-								<label for="disabledSelect">Interest Rate</label> <input
-									class="form-control" id="disabledInput" type="text" name="emi"
-									value="Write EMI value Here" placeholder="Disabled input"
-									disabled="">
+								<label for="disabledSelect">EMI for Loan</label> <input
+									class="form-control" id="disabledInput" type="text" 
+									value="<%=emi %>" placeholder="Disabled input"
+									disabled=""><input type="hidden" value="<%=amount %>" name="emi">
 							</div>
 						</div>
+						<input id="flag" type="hidden" name="flag" />
+						<input type="hidden" name="appid" value="<%=applicationid %>"/>
 						<div class="col-lg-6">
-							<button type="button" class="btn btn-danger pull-right"
-								onclick="viewcomments()">Reject</button>
+							<button id="reject" type="button" class="btn btn-danger pull-right">Reject</button>
 						</div>
 						<div class="col-lg-6">
-							<button type="button" class="btn btn-success"
-								onclick="viewcomments()">Approve</button>
+							<button id="approve" type="button" class="btn btn-success">Approve</button>
 						</div>
 					</form>
 				</div>
@@ -152,7 +136,23 @@
 	<script src="viewer/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript">
+		$("#approve").click(function(){
+			document.getElementById("flag").value = "1";
+			$("#myform").submit();
+		})
+		function submitLoanReject(){
+			
+			form.submit();
+		}
 		
+		$("#reject").click(function(){
+			document.getElementById("flag").value = "0";
+			$("#myform").submit();
+		})
+		function submitLoanReject(){
+			
+			form.submit();
+		}
 	</script>
 </body>
 

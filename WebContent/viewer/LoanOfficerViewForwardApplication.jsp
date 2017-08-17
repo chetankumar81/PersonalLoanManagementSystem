@@ -44,7 +44,7 @@
 	<div class="row">
 		<div class="col-md-12">
 
-			<form action="/LoanOfficerForwardServlet" method="post" >
+			<form action="LoanOfficerForwardServlet" method="post" >
 
 				<input type="hidden" value="<%=obj.getApplicationId()%>"
 					name="applicationId" /> <input type="submit" value="forward"

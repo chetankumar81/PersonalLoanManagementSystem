@@ -2,19 +2,12 @@ package com.shell.modular.business;
 
 public class NewLoanApplication {
 
-	private int appid,age,regno;
+	private int age,regno;
 	private long accnum,pcontact,offcontact,loanamt,moninc;
 	private	String salutation,fname,mname,lname;
 	private String pan,mail,gender,date,paddress,rowner,emptype,comp,desg,offaddress,offmail,exist_loan;
-	private String filePath,status,plan;
-	public int getAppid() {
-		return appid;
-	}
-
-	public void setAppid(int appid) {
-		this.appid = appid;
-	}
-
+	private String status,plan;
+	
 	public int getAge() {
 		return age;
 	}
@@ -199,13 +192,7 @@ public class NewLoanApplication {
 		this.exist_loan = exist_loan;
 	}
 
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
+	
 
 
 
@@ -219,15 +206,15 @@ public class NewLoanApplication {
 		this.status = status;
 	}
 
-	public NewLoanApplication(int appid, int age, int regno, long accnum,
+	public NewLoanApplication(int age, int regno, long accnum,
 			long pcontact, long offcontact, long loanamt, long moninc,
 			String salutation, String fname, String mname, String lname,
 			String pan, String mail, String gender, String date,
 			String paddress, String rowner, String emptype, String comp,
 			String desg, String offaddress, String offmail, String exist_loan,
-			String filePath, String status,String plan) {
+			 String status,String plan) {
 		super();
-		this.appid = appid;
+		//this.appid = appid;
 		this.age = age;
 		this.regno = regno;
 		this.accnum = accnum;
@@ -251,7 +238,7 @@ public class NewLoanApplication {
 		this.offaddress = offaddress;
 		this.offmail = offmail;
 		this.exist_loan = exist_loan;
-		this.filePath = filePath;
+		//this.filePath = filePath;
 	//	this.filePath2 = filePath2;
 		//this.filePath3 = filePath3;
 		this.status=status;

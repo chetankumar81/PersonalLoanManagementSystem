@@ -1,6 +1,7 @@
 package com.shell.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,14 +45,17 @@ public class UpdateLoanInspector extends HttpServlet {
 		RequestDispatcher dispatcher;
 		System.out.println("Executing 45 f UpdateLoanInspector");
 		System.out.println(result);
+		PrintWriter out= response.getWriter();
 		if(result){
-			System.out.println("Executing 47 of UpdateLoanInspector");
-			dispatcher=request.getRequestDispatcher("viewer/verified.html");
-			dispatcher.forward(request, response);
+			//System.out.println("Executing 47 of UpdateLoanInspector");
+			out.println("<script>alert('Forwarded sucessfully!!');window.location.href='GetApplicationsServlet';</script>");
+			//dispatcher=request.getRequestDispatcher("viewer/verified.html");
+			//dispatcher.forward(request, response);
 		}
 		else{
-			dispatcher=request.getRequestDispatcher("viewer/not_verified.html");
-			dispatcher.forward(request, response);
+			out.println("<script>alert('Forwarding Failed!!');window.location.href='GetApplicationsServlet';</script>");
+			//dispatcher=request.getRequestDispatcher("viewer/not_verified.html");
+			//dispatcher.forward(request, response);
 		}
 	}
 

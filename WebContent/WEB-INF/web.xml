@@ -162,6 +162,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>UploadPhoto</display-name>
+    <servlet-name>UploadPhoto</servlet-name>
+    <servlet-class>com.shell.controller.UploadPhoto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadPhoto</servlet-name>
+    <url-pattern>/UploadPhoto</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>SubmitLoanApplicationForm</display-name>
     <servlet-name>SubmitLoanApplicationForm</servlet-name>
     <servlet-class>com.shell.controller.SubmitLoanApplicationForm</servlet-class>
@@ -179,5 +189,13 @@
   <servlet-mapping>
     <servlet-name>UpdateLoanInspector</servlet-name>
     <url-pattern>/UpdateLoanInspector</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SubmitLoan</servlet-name>
+    <servlet-class>com.shell.controller.SubmitLoan</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubmitLoan</servlet-name>
+    <url-pattern>/submitloan</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -1,179 +1,225 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="com.google.gson.Gson"%>
 <%@ page import="com.shell.modular.business.LoanOfficerServices"%>
 <%@ page import="com.shell.modular.business.LoanOfficerApplication"%>
 <%@ page import="java.util.ArrayList"%>
-
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Detailed view of the application</title>
-<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/shop-item.css" rel="stylesheet">
-<style>
 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
-#aadhar_popup {
-	display: none;
-	position: absolute;
-	margin: 0 auto;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	box-shadow: 0px 0px 50px 2px #000;
-}
-</style>
+<title>Loan Officer</title>
 
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="css/sb-admin.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+	type="text/css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-	<a class="navbar-brand" href="#">Loan Officer Portal</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarResponsive" aria-controls="navbarResponsive"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarResponsive">
-		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active"><a class="nav-link" href="LoanOfficerView.jsp">Home
-					<span class="sr-only">(current)</span>
-			</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/viewer/LoanOfficerViewAll.jsp">History</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/viewer/LoanOfficerLogout.jsp">Logout</a></li>
-		</ul>
-	</div>
-	</nav>
 
-	<%
-		// code to display the new application in grid format.
-		String username = (String) session.getAttribute("username");
-		if (username == null) {
-			out.println("<script>alert('please login');window.location.href='home.html'</script>");
+	<div id="wrapper">
 
+		<!-- Navigation -->
+		<jsp:include page='header.jsp' />
+		<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+		<jsp:include page='side-nav-loanofficer.jsp' />
+		<!-- /.navbar-collapse -->
+		</nav>
 
-		}
+		<div id="page-wrapper">
 
-		else {
-			int id = Integer.parseInt(request.getParameter("id"));
-			LoanOfficerApplication obj = LoanOfficerServices.detailViewApplications(id);
+			<%
+				// code to display the new application in grid format.
+				String username = (String) session.getAttribute("username");
+				if (username == null) {
+					out.println("<script>alert('please login');window.location.href='home.html'</script>");
 
-			if (obj == null) {
-	%>
-	<script>
-		alert("error occurred, try to reload the page.");
-	</script>
-	<%
-		}
+				}
 
-			else {
-	%>
+				else {
+					int id = Integer.parseInt(request.getParameter("id"));
+					LoanOfficerApplication obj = LoanOfficerServices.detailViewApplications(id);
 
-	<div class="container">
+					if (obj == null) {
+			%>
+			<script>
+				alert("error occurred, try to reload the page.");
+			</script>
+			<%
+				}
 
-		<div class="row">
+					else {
+			%>
 
-			<div class="col-lg-3">
-				<h1 class="my-4"></h1>
-				<div class="list-group">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="well">
+							<b><%=obj.getName()%></b>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="well"><%=obj.getApplicationId()%></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="well">
+							<b>Gender :</b>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="well"><%=obj.getGender()%></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="well">
+							<b>Email Id:</b>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="well"><%=obj.getEmialId()%></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="well">
+							<b>Address:</b>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="well"><%=obj.getAddress()%></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="well">
+							<b>Designation:</b>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="well"><%=obj.getDesignation()%></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="well">
+							<b>Company Name:</b>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="well"><%=obj.getCompanyName()%></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="well">
+							<b>Age:</b>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="well"><%=obj.getAge()%></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="well">
+							<b>Contact Number</b>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="well"><%=obj.getContactNo()%></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="well">
+							<b>Loan Amount</b>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="well"><%=obj.getLoanAmount()%></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="well">
+							<b>Monthly Income</b>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="well"><%=obj.getMonthlyIncome()%></div>
+					</div>
+				</div>
+
+				<div class="row">
+					<!-- /.col-lg-3 -->
+					<!--  div that pop up images  -->
 
 					
-					<button class="btn btn-primary" id="aadhar">Aadhar Photo
-						Copy</button>
 
+
+								<form
+									action="${pageContext.request.contextPath}/LoanOfficerUpdateServlet"
+									method="post" id="myform">
+									<input type="hidden" value="<%=obj.getApplicationId()%>"
+										name="applicationId" /><br />
+
+									<textarea rows="2" cols="50" name="comment" form="myform"
+										placeholder="enter the comment here" required></textarea>
+									<br> <input type="submit" value="Assign"
+										class="btn btn-success" />
+							</div>
 
 				</div>
-			</div>
-			<!-- /.col-lg-3 -->
-			<!--  div that pop up images  -->
-			
-			<div id="aadhar_popup">
-				<img src="<%=obj.getPhotoUrl()%>" alt="popup">
-				<button id="closeAadhar" class="btn btn-success btn-xs">Close</button>
-			</div>
-
-
-			<div class="col-lg-9">
-
-				<div class="card mt-4">
-
-					<div class="card-body">
-						<h3 class="card-title"><%=obj.getName() %></h3>
-						<h4><%=obj.getApplicationId() %></h4>
-						
-						
-					</div>
-				</div>
-				<!-- /.card -->
-
-				<div class="card card-outline-secondary my-4">
-					<div class="card-header">Details</div>
-					<div class="card-body">
-						<p class="card-text"><b>gender :</b> <%= obj.getGender() %></p>
-						
-						<hr>
-						<p class="card-text"><b>address :</b> <%= obj.getAddress() %></p><hr>
-						
-						<p class="card-text"><b>email id :</b> <%= obj.getEmialId() %></p>
-						
-						<hr>
-						<p class="card-text"><b>designation :</b> <%= obj.getDesignation() %></p>
-						
-						<hr>
-						
-						<p class="card-text"><b>company name :</b> <%= obj.getCompanyName() %></p>
-						<hr>	
-						
-						<p class="card-text"><b>age :</b> <%= obj.getAge() %></p>
-						
-						<hr>
-						<p class="card-text"><b>contact no :</b> <%= obj.getContactNo() %></p>
-						
-						<hr>
-						<p class="card-text"><b>loan amount :</b> <%= obj.getLoanAmount() %></p>
-						
-						<hr>
-						<p class="card-text"><b>monthly income :</b> <%= obj.getMonthlyIncome() %></p>
-						
-						<hr>
-						
-						<form action="${pageContext.request.contextPath}/LoanOfficerUpdateServlet" method="post" id="myform">
-							<input type="text" value="<%= obj.getApplicationId() %>"  name="applicationId"/><br />
-							
-							<textarea rows="2" cols="50" name="comment" form="myform"
-								placeholder="enter the comment here" required></textarea>
-							<br> <input type="submit" value="Assign"
-								class="btn btn-success" />
-					</div>
-				</div>
-				<!-- /.card -->
 
 			</div>
-			<!-- /.col-lg-9 -->
+
+
+
+
+			<%
+				}
+
+				}
+			%>
+			<!-- /.container-fluid -->
 
 		</div>
+		<!-- /#page-wrapper -->
 
 	</div>
+	<!-- /#wrapper -->
 
+	<!-- jQuery -->
+	<script src="js/jquery.js"></script>
 
-
-
-	<%
-		}
-
-		}
-	%>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/popper.min.js"></script>
-	<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			//select the POPUP FRAME and show it
-			
+
 			$("#aadhar").on("click", function() {
 				$("#aadhar_popup").hide().fadeIn(1000);
 			});
@@ -185,5 +231,7 @@
 			});
 		});
 	</script>
+
 </body>
+
 </html>

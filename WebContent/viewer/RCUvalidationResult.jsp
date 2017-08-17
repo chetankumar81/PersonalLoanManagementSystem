@@ -72,8 +72,8 @@
 				</div>
 	<%
 	 
-	//String username = (String)session.getAttribute("username");
-	String username="kumaresh";
+	String username = (String)session.getAttribute("username");
+	//String username="kumaresh";
 	int userId=7;
 	if(username==null)
 	{

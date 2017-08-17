@@ -2,9 +2,6 @@ package com.shell.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -32,7 +29,7 @@ public class TrackStatus extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		try{
 
-			int regId = 1;//(Integer)session.getAttribute("CustomerUsername");//Integer.parseInt(request.getParameter("uname"));
+			int regId=Integer.parseInt((String)session.getAttribute("userid"));//Integer.parseInt(request.getParameter("uname"));
 
 			TrackApplication track1 = new TrackApplication();
 			track1.trackLoan(regId);
@@ -43,7 +40,7 @@ public class TrackStatus extends HttpServlet {
 			if(applicationList == null)
 			{
 				out.println("<script>alert('please login');</script>");
-				response.sendRedirect("index.html");
+				response.sendRedirect("viewer/CustomerDashboard.jsp");
 			}
 			else if(applicationList.size()==0)
 			{
@@ -63,7 +60,7 @@ public class TrackStatus extends HttpServlet {
 		{
 			e.printStackTrace();
 			out.println("<script>alert('please login')</script>");
-			response.sendRedirect("viewer/index.html");
+			response.sendRedirect("viewer/CustomerDashboard.jsp");
 		}
 
 	}

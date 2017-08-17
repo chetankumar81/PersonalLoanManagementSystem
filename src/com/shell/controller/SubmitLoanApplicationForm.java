@@ -15,15 +15,13 @@ import com.shell.modular.business.NewLoanApplication;
 import com.shell.modular.business.NewLoanApplicationServices;
 
 
-@MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
-maxFileSize=1024*1024*10,      // 10MB
-maxRequestSize=1024*1024*50)
+
 
 
 
 public class SubmitLoanApplicationForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SAVE_DIR="images";
+	//private static final String SAVE_DIR="images";
 	//private static final String SAVE_DIR2="add";
 	//private static final String SAVE_DIR3="ide";
 
@@ -41,14 +39,15 @@ public class SubmitLoanApplicationForm extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		PrintWriter out = response.getWriter();
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(true);
 		String username = (String) session.getAttribute("username");
 		
 		if(username!=null)
 		{
 			int appid=1;
 			//int appid = Integer.parseInt(request.getParameter("appnum"));
-			Long accnum = Long.parseLong(request.getParameter("account"));
+			long accnum = Long.parseLong(request.getParameter("account"));
+			//System.out.println(accnum);
 			String salutation = request.getParameter("salutation");
 			String fname = request.getParameter("fname");
 			String mname = request.getParameter("mname");
@@ -71,41 +70,34 @@ public class SubmitLoanApplicationForm extends HttpServlet {
 			Long loanamt = Long.parseLong(request.getParameter("loan_amount"));
 			Long moninc = Long.parseLong(request.getParameter("mon_inc"));
 			String exist_loan = request.getParameter("exist_loan");
-			String savePath = "E:" + File.separator + SAVE_DIR;
+			//String savePath = "E:" + File.separator + SAVE_DIR;
 		//	String savePath2 = "E:" + File.separator + SAVE_DIR2;
 			//String savePath3 = "E:" + File.separator + SAVE_DIR3;
 			
-			File fileSaveDir=new File(savePath);
-			
-			if(!fileSaveDir.exists()){
-				fileSaveDir.mkdir();
-			}
+		
 			
 		
-			String fileName=null;
+		
 		//	String fileName2=null;
 			//String fileName3=null;
-			Part part = request.getPart("photo"); 
-			fileName = extractFileName(part);
-		
-			File f=new File(fileName);
+			
 			//File f2=new File(fileName2);
 			//File f3=new File(fileName3);
-			part.write(savePath + File.separator + f.getName());
+			//part.write(savePath + File.separator + f.getName());
 		
-			String filePath=savePath+File.separator + f.getName();
+		//	String filePath=savePath+File.separator + f.getName();
 			
 			//session work
-			int regno=2;
+			int regno= Integer.parseInt((String)request.getSession().getAttribute("userid"));
 			//check this while integration
 			String status="new";
-			NewLoanApplication loanapp=new NewLoanApplication(appid,age,regno,accnum,
+			NewLoanApplication loanapp=new NewLoanApplication(age,regno,accnum,
 					pcontact,offcontact,loanamt,moninc,
 					salutation,fname,mname,lname,
 					pan,mail,gender,date,
 					paddress,rowner,emptype,comp,
 					desg,offaddress,offmail,exist_loan,
-					filePath,status,plan);
+					status,plan);
 			
 			// invoking the service the inserts the data .
 			
@@ -124,21 +116,12 @@ public class SubmitLoanApplicationForm extends HttpServlet {
 		
 		else
 		{
-			out.println("<script>alert('please login');window.location.href='viewer/index.html'</script>");
+			out.println("<script>alert('please login');window.location.href='viewer/home.jsp'</script>");
 			
 		}
 	}
 
-	private String extractFileName(Part part) {
-		String contentDisp = part.getHeader("content-disposition");
-		String[] items = contentDisp.split(";");
-		for (String s : items) {
-			if (s.trim().startsWith("filename")) {
-				return s.substring(s.indexOf("=") + 2, s.length()-1);
-			}
-		}
-		return "";
-	}
+	
 	
 	
 }

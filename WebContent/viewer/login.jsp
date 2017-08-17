@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
 alert("Username or Password is incorrect");
-window.location.href="login1.html";
+window.location.href="home.jsp";
 </script>
 </body>
 </html>

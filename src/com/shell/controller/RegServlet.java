@@ -55,7 +55,7 @@ public class RegServlet extends HttpServlet {
 		}
 		else
 		{
-			RequestDispatcher dispatcher = request.getRequestDispatcher("viewer/home.html");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("viewer/home.jsp");
 			dispatcher.forward(request, response);
 			
 		}

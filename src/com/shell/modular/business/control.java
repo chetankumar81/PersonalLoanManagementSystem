@@ -15,6 +15,13 @@ public class control {
 		else
 			return 0;
 	}
+	public static int officer_checkp(String username,String password)
+	{
+		if((DatabaseAccess.officer_checkpassword(username, password)) == 1)
+			return 1;
+		else
+			return 0;
+	}
 	public static String getQuestion(String username)
 	{
 		return DatabaseAccess.getQuestion(username);
@@ -27,6 +34,7 @@ public class control {
 			// TODO Auto-generated catch block
 			return null;
 		}
+		
 		
 	}
 	public static int UpdatePassword(String username,String password)

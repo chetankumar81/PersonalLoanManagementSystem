@@ -46,7 +46,7 @@ public class GetApplicationsServlet extends HttpServlet {
 				}
 				else if(applications.size()==0)
 				{
-					out.println("No new applications");
+					out.println("viewer/LoanInspector.jsp");
 				}
 				else{
 					

@@ -1,43 +1,64 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="com.google.gson.Gson"%>
 <%@ page import="com.shell.modular.business.LoanOfficerServices"%>
 <%@ page import="com.shell.modular.business.LoanOfficerApplication"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Loan officer view new application</title>
-<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/viewer/bootstrap/css/1-col-portfolio.css" rel="stylesheet">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>CM Home</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="css/sb-admin.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+	type="text/css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-	<a class="navbar-brand" href="#">Third Party Portal</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarResponsive" aria-controls="navbarResponsive"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarResponsive">
-		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active"><a class="nav-link"
-				href="${pageContext.request.contextPath}/viewer/LoanOfficerView.jsp">Home <span class="sr-only">(current)</span>
-			</a></li>
-			
-			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/viewer/LoanOfficerViewForwardApplication.jsp">Forward User</a></li>
-		</ul>
-	</div>
-	</nav>
-	<!--  end of navbar -->
 
-	<div class="container">
-		<h1 class="my-4">
-			DashBoard <small>New Applications</small>
-		</h1>
+	<div id="wrapper">
 
-		<%
+		<!-- Navigation -->
+		<jsp:include page='header.jsp' />
+		<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+		<jsp:include page='side-nav-loanofficer.jsp' /> <!-- /.navbar-collapse --> </nav>
+
+		<div id="page-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Page Heading -->
+				<div class="row" >
+					<div class="col-lg-12">
+						<h1 class="page-header">
+							Loan Officer<small>Home page</small>
+						</h1>
+						<ol class="breadcrumb">
+							<li><i class="fa fa-dashboard"></i> <a href="LoanOfficerView.jsp">Home</a>
+							</li>
+						</ol>
+					</div>
+					<%
 			String username = (String) session.getAttribute("username");
 			if (username == null) {
 				out.println("<script>alert('please login');window.location.href='home.html';</script>");
@@ -61,17 +82,20 @@
 					for (LoanOfficerApplication obj : list) {
 						// display the new applications that are to be verified by loan officer in grid format.
 		%>
-		<div class="row">
-			<div class="col-md-12">
-				<form action="LoanOfficerApplicationDetailView.jsp" method="get">
-
-					<p><b>Application name :</b> <%=obj.getApplicationId() %></p>
+		<div class="row"><br/><br/>
+		<form action="LoanOfficerApplicationDetailView.jsp" method="get">
+			<div class="col-md-6" style="padding-left:10%">
+				
 					
+					<p><b>Application Id :</b> <%=obj.getApplicationId() %></p>
+				</div>
+				<div class="col-md-6">	
 					<input type="hidden" value="<%=obj.getApplicationId()%>"
 						name="id" /> <input type="submit" class="btn btn-primary" value="view application" />
-				</form>
+				
 
-			</div>
+			</div><br/><br/>
+			</form>
 		</div>
 		</hr>
 		<%
@@ -82,10 +106,28 @@
 
 			}
 		%>
-		</div>
+				</div>
+				<!-- /.row -->
 
-		<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/popper.min.js"></script>
-		<script src="${pageContext.request.contextPath}/viewer/bootstrap/js/bootstrap.min.js"></script>
+			</div>
+			<!-- /.container-fluid -->
+
+		</div>
+		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- jQuery -->
+	<script src="js/jquery.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
+
 </body>
+
 </html>

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import com.shell.modular.business.control;
+import com.shell.modular.dao.DatabaseAccess;
 
 
 
@@ -87,7 +88,14 @@ public class Login_Servlet extends HttpServlet {
 		{
 			HttpSession session = request.getSession(true);
 			session.setAttribute("username",username);
+			try {
+				session.setAttribute("userid", DatabaseAccess.getregId(username));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			//session.setMaxInactiveInterval(60);
+			System.out.println(session.getAttribute("userid"));
 	        response.sendRedirect("viewer/CustomerDashboard.jsp");
 		}
 		else if((control.checkp(username, password)) == 2)
@@ -95,7 +103,7 @@ public class Login_Servlet extends HttpServlet {
 			response.sendRedirect("viewer/login.jsp");
 		}
 		else
-			response.sendRedirect("viewer/login1.html");
+			response.sendRedirect("viewer/home.jsp");
 		}
 	
 

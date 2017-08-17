@@ -2,6 +2,7 @@ package com.shell.modular.dao;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,12 +18,95 @@ import com.shell.modular.business.Message;
 import com.shell.modular.business.NewLoanApplication;
 import com.shell.modular.business.Officers;
 import com.shell.modular.business.Pdc;
+import com.shell.modular.business.Photo;
 import com.shell.modular.business.ThirdPartyApplication;
 import com.shell.modular.business.Tracking;
 import com.shell.util.DBConnection;
 
 public class DatabaseAccess {
 	private Connection currentCon;
+	public boolean updatedByCreditManager(String username,String applicationId,String status,String amount,String emi)
+	{	
+		int officerId;
+		int loanId=1;
+		Date approval_date=null;
+		//double amount= 220000.0;
+		double interest_rate = 6;
+		String reason= status;
+		//String status1="Accepted";
+		//double emi_assign = 2000.0;
+		int loan_duration= 6;
+		
+		try
+		{
+			currentCon = DBConnection.getConnection();
+			String queryForOfficerId = "select * from officers where username ='" +username+ "'";
+			currentCon = DBConnection.getConnection();
+			Statement stat = currentCon.createStatement();
+			ResultSet resultSet = stat.executeQuery(queryForOfficerId);
+			if(resultSet.next())
+			{
+				officerId=resultSet.getInt("officer_id");
+			}
+			else
+			{
+				return false;
+			}
+
+			String changeStatus="update loan_application set status = 'forwardToUser' where application_id="+applicationId;
+			Statement stat2 = currentCon.createStatement();
+			if(stat2.executeUpdate(changeStatus)!=0)
+			{
+				System.out.println("stat2 executed");
+				String creditManagerstatus ="insert into loan_officer_assign values (" +applicationId + "," + officerId + ",'" + status + "','verified')";
+				Statement stat3 = currentCon.createStatement();
+				if(stat3.executeUpdate(creditManagerstatus)!=0)
+				{
+					System.out.println("stat3 executed");
+					String creditManagerrstatus1 ="insert into Loan_app_or_rej (application_id,approval_date,amount_sanctioned,interest_rate,reason,status,emi_assigned,loan_duration) values ("+applicationId + ",'17-Aug-2017"+"',"+ amount + "," + interest_rate + ",'" + reason + "','"+  status + "'," + emi + ","+ loan_duration + ")";
+					System.out.println(creditManagerrstatus1);
+					Statement stat4 = currentCon.createStatement();
+					if(stat4.executeUpdate(creditManagerrstatus1)!=0)
+					{
+						System.out.println("stat4 executed");
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+				else
+				{
+					return false;
+				}
+
+
+			}
+			else
+			{
+				return false;
+			}
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		finally 
+		{
+
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+
+				currentCon = null;
+			}
+		}
+
+	}
 	public boolean updatedByLoanInspector(String username,int applicationId,String risk,String comment)
 	{	
 		int officerId;
@@ -219,7 +303,7 @@ public class DatabaseAccess {
 
 			while(resultSet.next())
 			{
-				list.add(new LoanOfficerApplication(resultSet.getInt("application_id"),resultSet.getInt("contact_no"),resultSet.getInt("age"),resultSet.getInt("office_contact_no"),resultSet.getString("fname"),resultSet.getString("email_id"),resultSet.getString("gender"),resultSet.getString("address"),resultSet.getString("pan_no"),resultSet.getString("company_name"),resultSet.getString("designation"),resultSet.getString("office_address"),resultSet.getString("office_email"),resultSet.getString("existing_loan"),resultSet.getString("photo"),resultSet.getString("address_document"),resultSet.getDouble("loan_amount"),resultSet.getInt("monthly_income")));
+				list.add(new LoanOfficerApplication(resultSet.getInt("application_id"),resultSet.getLong("contact_no"),resultSet.getInt("age"),resultSet.getLong("office_contact_no"),resultSet.getString("fname"),resultSet.getString("email_id"),resultSet.getString("gender"),resultSet.getString("address"),resultSet.getString("pan_no"),resultSet.getString("company_name"),resultSet.getString("designation"),resultSet.getString("office_address"),resultSet.getString("office_email"),resultSet.getString("existing_loan"),resultSet.getString("photo"),resultSet.getString("address_document"),resultSet.getDouble("loan_amount"),resultSet.getInt("monthly_income")));
 			}
 
 			return list;
@@ -367,7 +451,7 @@ public class DatabaseAccess {
 			ResultSet result= stat.executeQuery(query);
 			if(result.next()){
 
-				LoanOfficerApplication app = new LoanOfficerApplication(result.getInt("application_id"),result.getInt("contact_no"),result.getInt("age"),result.getInt("office_contact_no"),result.getString("fname"),result.getString("email_id"),result.getString("gender"),result.getString("address"),result.getString("pan_no"),result.getString("company_name"),result.getString("designation"),result.getString("office_address"),result.getString("office_email"),result.getString("existing_loan"),result.getString("photo"),result.getString("address_document"),result.getDouble("loan_amount"),result.getInt("monthly_income"));
+				LoanOfficerApplication app = new LoanOfficerApplication(result.getInt("application_id"),result.getLong("contact_no"),result.getInt("age"),result.getLong("office_contact_no"),result.getString("fname"),result.getString("email_id"),result.getString("gender"),result.getString("address"),result.getString("pan_no"),result.getString("company_name"),result.getString("designation"),result.getString("office_address"),result.getString("office_email"),result.getString("existing_loan"),result.getString("photo"),result.getString("address_document"),result.getDouble("loan_amount"),result.getInt("monthly_income"));
 				return app;
 			}
 			else
@@ -434,38 +518,41 @@ public class DatabaseAccess {
 
 		try{
 			currentCon = DBConnection.getConnection();
-			String query = "insert into loan_application(APPLICATION_ID,EMAIL_ID,GENDER,DATE_OF_BIRTH,AGE,CONTACT_NO,ADDRESS,PAN_NO,LOAN_AMOUNT,MONTHLY_INCOME,COMPANY_NAME,DESIGNATION,OFFICE_ADDRESS,OFFICE_CONTACT_NO,OFFICE_EMAIL,EXISTING_LOAN,PHOTO,STATUS,REG_ID,ACCOUNTNO,SALUTATION,FNAME,MNAME,LNAME,RESIDENTIAL_OWNER,PLAN) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into loan_application(EMAIL_ID,GENDER,DATE_OF_BIRTH,AGE,CONTACT_NO,ADDRESS,PAN_NO,LOAN_AMOUNT,MONTHLY_INCOME,COMPANY_NAME,DESIGNATION,OFFICE_ADDRESS,OFFICE_CONTACT_NO,OFFICE_EMAIL,EXISTING_LOAN,STATUS,REG_ID,ACCOUNTNO,SALUTATION,FNAME,MNAME,LNAME,RESIDENTIAL_OWNER,PLAN) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pst = currentCon.prepareStatement(query);
 
-			pst.setLong(1,loanapp.getAppid());
-			pst.setString(2,loanapp.getMail());
+			//pst.setLong(1,loanapp.getAppid());
+			pst.setString(1,loanapp.getMail());
 			
-			pst.setString(3,loanapp.getGender()); 
-			pst.setString(4,loanapp.getDate());
-			pst.setLong(5,loanapp.getAge());
-			pst.setLong(6,loanapp.getPcontact());
-			pst.setString(7,loanapp.getPaddress());
-			pst.setString(8,loanapp.getPan());
-			pst.setLong(9,loanapp.getLoanamt());
-			pst.setLong(10,loanapp.getMoninc());
-			pst.setString(11,loanapp.getComp());
-			pst.setString(12,loanapp.getDesg());
-			pst.setString(13,loanapp.getOffaddress());
-			pst.setLong(14,loanapp.getOffcontact());
-			pst.setString(15,loanapp.getOffmail());
-			pst.setString(16,loanapp.getExist_loan());
-			pst.setString(17,loanapp.getFilePath());
+			pst.setString(2,loanapp.getGender()); 
+			pst.setString(3,loanapp.getDate());
+			pst.setLong(4,loanapp.getAge());
+			pst.setLong(5,loanapp.getPcontact());
+			pst.setString(6,loanapp.getPaddress());
+			pst.setString(7,loanapp.getPan());
+			pst.setLong(8,loanapp.getLoanamt());
+			pst.setLong(9,loanapp.getMoninc());
+			pst.setString(10,loanapp.getComp());
+			pst.setString(11,loanapp.getDesg());
+			pst.setString(12,loanapp.getOffaddress());
+			pst.setLong(13,loanapp.getOffcontact());
+			pst.setString(14,loanapp.getOffmail());
+			pst.setString(15,loanapp.getExist_loan());
+			//
 		//	pst.setString(1,loanapp.getFilePath2());
-			pst.setString(18,loanapp.getStatus());
-			pst.setInt(19,loanapp.getRegno());
-			pst.setLong(20,loanapp.getAccnum());
-			pst.setString(21,loanapp.getSalutation());
-			pst.setString(22,loanapp.getFname());
-			pst.setString(23,loanapp.getMname());
-			pst.setString(24,loanapp.getLname());
+			pst.setString(16,loanapp.getStatus());
+			pst.setInt(17,loanapp.getRegno());
+			pst.setLong(18,loanapp.getAccnum());
+			
+			System.out.println(loanapp.getAccnum());
+			pst.setString(19,loanapp.getSalutation());
+			pst.setString(20,loanapp.getFname());
+			pst.setString(21,loanapp.getMname());
+			pst.setString(22,loanapp.getLname());
 		
-			pst.setString(25,loanapp.getRowner());
-			pst.setString(26,loanapp.getPlan());
+			pst.setString(23,loanapp.getRowner());
+			pst.setString(24,loanapp.getPlan());
+		//	pst.setString(25,loanapp.getFilePath());
 			System.out.println(loanapp.getAccnum());
 			row = pst.executeUpdate();
 
@@ -798,6 +885,44 @@ public class DatabaseAccess {
 		}
 		
 	}
+	
+	public int submitPhoto(Photo p){
+	    Photo p1=p;
+	    System.out.println(p1);
+		int row=0;// no insertion	
+		try{
+			currentCon = new DBConnection().getConnection();
+	    String query = "update loan_application set PHOTO='"+p1.getFilePath4()+"' where reg_id=2";
+	    PreparedStatement pst = currentCon.prepareStatement(query);
+	    System.out.println(query);
+		//pst.setString(1,p1.getFilePath4());
+		System.out.println(p1.getFilePath4());
+		row = pst.executeUpdate();
+		System.out.println(pst.executeUpdate());
+		return row;
+		
+		}
+		catch (Exception ex) 
+		{
+			ex.printStackTrace();
+			return 0;
+		} 
+
+		//some exception handling
+		finally 
+		{
+
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+
+				currentCon = null;
+			}
+		}
+		
+	}
 
 	public ArrayList<Applications> getApplicationIdcm(String status) {
 		ArrayList<Applications> applist = new ArrayList<Applications>();
@@ -928,6 +1053,7 @@ public class DatabaseAccess {
 				comm.feedback = rs.getString(1);
 				comm.name = rs.getString(2);
 				comm.role_name = rs.getString(3);
+				comm.appid = appid;
 				commlist.add(comm);
 			}
 
@@ -1009,11 +1135,7 @@ public class DatabaseAccess {
 	public static int checkpassword(String username,String password)
 	 {
 		  String query = null;
-		  
-		  if(username.startsWith("k")|username.startsWith("K"))
-			 query = "select password from officers where username='"+username+"'";
-		  else
-			 query = "select password from registration where username='"+username+"'";
+		  query = "select password from registration where username='"+username+"'";
 		 
 		if(!DBConnection.getResultStatus(query))
 			return 2;
@@ -1049,12 +1171,82 @@ public class DatabaseAccess {
 		return 0;
 		
 	}
+	public  int getRoleId(int officerId)
+	{
+		try{
+			String query = "SELECT role_id FROM officers WHERE officer_id="+ officerId;
+			currentCon = DBConnection.getConnection();
+			Statement stat = currentCon.createStatement();
+			ResultSet resultSet = stat.executeQuery(query);
+			resultSet.next();
+			int roleId = resultSet.getInt("role_id");
+			return roleId;
+			
+		}
+		catch(Exception e)
+		{
+			return 0;
+		}
+		
+	}
+	public static int officer_checkpassword(String username,String password)
+	 {
+		  String query = null;
+		  
+		  
+			 query = "select password from officers where username='"+username+"'";
+		  
+		 
+		if(!DBConnection.getResultStatus(query))
+			return 2;
+		else
+		{
+		ResultSet result =  DBConnection.getResultSet(query);
+	     try {
+			if(result.next())
+			{
+				String pwd = result.getString("password");
+				if(pwd.equals(password))
+				{
+					return 1;
+				}
+				else
+					return 0;
+			}
+	     }
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+			return 0;
+			}
+	     finally
+	     {
+	    	 try {
+				result.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				return 0;
+			}
+	     }
+	 }
+		return 0;
+		
+	}
+	
 	  public static String getOfficerId(String username) throws SQLException
 	  {
 		  String query = "select officer_id from officers where username='"+username+"'";
 		  ResultSet result = DBConnection.getResultSet(query);
 		  if(result.next())
 		  return result.getString("officer_id");
+		  else
+			  return null;
+	  }
+	  public static String getregId(String username) throws SQLException
+	  {
+		  String query = "select reg_id from registration where username='"+username+"'";
+		  ResultSet result = DBConnection.getResultSet(query);
+		  if(result.next())
+		  return result.getString("reg_id");
 		  else
 			  return null;
 	  }
@@ -1154,5 +1346,69 @@ public class DatabaseAccess {
 		}
 
 		return 	officers;
+	}
+	
+	public boolean updatedBycreditManager(String username,int applicationId,String risk,String comment)
+	{	
+		int officerId;
+		try
+		{
+			currentCon = DBConnection.getConnection();
+			String queryForOfficerId = "select * from officers where username ='" +username+ "'";
+			currentCon = DBConnection.getConnection();
+			Statement stat = currentCon.createStatement();
+			ResultSet resultSet = stat.executeQuery(queryForOfficerId);
+			if(resultSet.next())
+			{
+				officerId=resultSet.getInt("officer_id");
+				System.out.println(officerId);
+			}
+			else
+			{
+				System.out.println("Executing 43 of databaseaccess");
+				return false;
+			}
+
+			String changeStatus="update loan_application set status = 'creditManager' where application_id='"+applicationId+"'";
+			Statement stat2 = currentCon.createStatement();
+			if(stat2.executeUpdate(changeStatus)!=0)
+			{
+		
+				String loanOfficerstatus ="insert into loan_officer_assign values (" + applicationId + "," + officerId + "," + "'" + risk + "','" + comment +"' )";
+				Statement stat3 = currentCon.createStatement();
+				if(stat3.executeUpdate(loanOfficerstatus)!=0)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+
+
+			}
+			else
+			{
+				return false;
+			}
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		finally 
+		{
+
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+
+				currentCon = null;
+			}
+		}
+
 	}
 }

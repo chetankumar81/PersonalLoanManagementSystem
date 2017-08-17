@@ -1,7 +1,8 @@
 package com.shell.modular.business;
 
 public class LoanOfficerApplication {
-	private int applicationId,contactNo,age,officeContactNo;
+	private int applicationId,age;
+	private long officeContactNo,contactNo;
 	private String name,emialId,gender,address,panNo,companyName,designation,officeAddress,officeEmail,existingLoan,photoUrl,docUrl;
 	private double loanAmount,monthlyIncome;
 	private String comment,statusByOfficer;
@@ -23,7 +24,7 @@ public class LoanOfficerApplication {
 	}
 
 
-	public LoanOfficerApplication(int applicationId, int contactNo, int age, int officeContactNo, String name,
+	public LoanOfficerApplication(int applicationId, long contactNo, int age, long officeContactNo, String name,
 			String emialId, String gender, String address, String panNo, String companyName,
 			String designation, String officeAddress, String officeEmail, String existingLoan, String photoUrl,
 			String docUrl, double loanAmount, double monthlyIncome) {
@@ -55,7 +56,7 @@ public class LoanOfficerApplication {
 	}
 
 
-	public int getContactNo() {
+	public long getContactNo() {
 		return contactNo;
 	}
 
@@ -65,7 +66,7 @@ public class LoanOfficerApplication {
 	}
 
 
-	public int getOfficeContactNo() {
+	public long getOfficeContactNo() {
 		return officeContactNo;
 	}
 
